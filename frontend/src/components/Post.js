@@ -1,6 +1,6 @@
 import "../styles/post.scss";
 
-function Card(props) {
+function Post(props) {
     const {
         username,
         image,
@@ -14,9 +14,9 @@ function Card(props) {
         </div>
 
         <img 
-            className="cardImage" 
+            className="postImage" 
             src={image} 
-            alt="card content"
+            alt="post content"
         />
 
         <div className="artworkName">
@@ -31,4 +31,4 @@ function Card(props) {
     );
 }
 
-export default Card;
+export default Post;

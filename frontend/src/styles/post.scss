@@ -5,17 +5,16 @@
   border-width: 3px;
   background-color: $background-white;
   width: 100%;
-  margin-bottom: 3.5em;
+  margin-bottom: 10px;
   border-radius: 3px;
 
   .username {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0.75em;
+    padding: 10px;
   }
 
-  .cardImage {
+  .postImage {
     width: 100%;
     display: block;
   }
@@ -23,29 +22,27 @@
   .artworkName {
     color: $border-color-blue;
     display: flex;
-    padding-top: 1em;
-    padding-left: 1em;
+    padding-top: 10px;
+    padding-left: 10px;
   }
 
   .description {
-    padding-top: 1em;
-    padding-left: 1em;
-    margin-bottom: 0.75em;
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-bottom: 10px;
   }
 }
 
-@media only screen and (max-width: 640px) {
-  .card {
-    border: none;
-    background-color: $background-grey;
-    margin-bottom: 0.75em;
+// Mini devices (landscape phones, 576px and below)
+@media screen and (max-width: 576px) { 
+  .post {
+       
+  }
+}
 
-    .addComment {
-      display: none;
-    }
-
-    .timePosted {
-      border: none;
-    }
+// Mini devices (landscape phones, 576px and below)
+@media screen and (min-width: 576px) and (max-width:786px) { 
+  .menu {
+      font-size: 16px;
   }
 }

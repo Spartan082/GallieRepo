@@ -1,4 +1,4 @@
-import "../styles/navigation.scss";
+import "../styles/homepage-header.scss";
 import logo from "../images/logo.jpg";
 import searchIcon from "../images/search_icon.png";
 import Menu from "./Menu.js";

@@ -1,10 +1,10 @@
-import "../styles/cards.scss";
+import "../styles/posts.scss";
 import Card from "./Post";
 
-function Cards() {
+function Posts() {
 
     return (
-        <div className="cards">
+        <div className="posts">
 
             <Card 
                 username="rafagrassetti"
@@ -28,4 +28,4 @@ function Cards() {
     )
 }
 
-export default Cards;
+export default Posts;

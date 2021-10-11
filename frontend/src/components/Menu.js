@@ -1,4 +1,4 @@
-import "../styles/menu.scss";
+import "../styles/homepage-header.scss";
 
 function Menu() {
     return (
@@ -10,7 +10,7 @@ function Menu() {
                 <span className="commissionText">Commission</span>
             </div>
             <div className="templates">
-                <span className="templatesText">Templates</span>
+                <span className="templatesText">Info</span>
             </div>
             <div className="report">
                 <span className="reportText">Report</span>

@@ -1,6 +1,6 @@
 import '../styles/App.scss';
 import Navigation from "./Navigation";
-import Cards from "./Cards";
+import Posts from "./Posts";
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <Navigation />
       <main>
         <div className="container">
-          <Cards />
+          <Posts />
         </div>
       </main>
     </div>
