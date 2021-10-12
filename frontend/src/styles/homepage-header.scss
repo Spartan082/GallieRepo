@@ -1,5 +1,52 @@
 @import 'properties';
 
+.navigation {
+    position: fixed;
+    top: 0;
+    background-color: $background-color-orange;
+    width: 100%;
+
+    .logo {
+        max-width: 100%;
+        max-height: 110px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        
+        &:hover {
+           cursor: pointer;
+        }
+    }
+
+    .search {
+        border: 1px solid $border-color-blue;
+        border-width: 3px;
+        background-color: $background-white;
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .searchIcon {
+            color: $text-color-grey;
+            width: 15px;
+            margin-right: 0.3em;
+            justify-content: center;
+        }
+
+        .searchText {
+            color: $text-color-grey;
+            font-size: 1.1em;
+            font-weight: 300;
+            justify-content: center;
+        }
+
+        &:hover {
+            cursor: text;
+        }
+    }
+}
+
 .menu {
     display: flex;
     border: 1px solid $border-color-blue;
@@ -11,7 +58,7 @@
     font-size: 26px;
     font-weight: 300;
     justify-content: center;
- 
+
     .home {
         color: $background-white;
         border-right: 1px solid $border-color-blue;
@@ -47,60 +94,13 @@
     .profileName {
         color: $background-white;
         border-right: 1px solid $border-color-blue;
-        border-right-width: 3px;
+        border-right-width: 1px;
         width: 20%;
         text-align: center;
     }
 
     &:hover {
         cursor: pointer;
-    }
-}
-
-.navigation {
-    position: fixed;
-    top: 0;
-    background-color: $background-color-orange;
-    width: 100%;
-
-    .logo {
-        max-width: 100%;
-        max-height: 110px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        
-        &:hover {
-           cursor: pointer;
-        }
-    }
-
-    .search {
-        border: 1px solid $border-color-blue;
-        border-width: 3px;
-        background-color: $background-white;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .searchIcon {
-            color: $text-color-grey;
-            width: 15px;
-            margin-right: 0.3em;
-            justify-content: center;
-        }
-
-        .searchText {
-            color: $text-color-grey;
-            font-size: 1.1em;
-            font-weight: 300;
-            justify-content: center;
-        }
-
-        &:hover {
-            cursor: text;
-        }
     }
 }
 
