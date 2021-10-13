@@ -1,7 +1,7 @@
 import '../styles/App.scss';
 import Navigation from "./Navigation";
 import React from 'react';
-import Card from "./Post";
+import Card from "./Posts";
 
 function Commission() {
   return (
