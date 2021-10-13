@@ -1,32 +1,46 @@
 import "../styles/post.scss";
+import Axios from "axios";
+import React, { useState, useEffect } from 'react';
 
 function Post(props) {
     const {
         username,
         image,
-        artworkName,
-        description,
     } = props;
 
-    return (<div className="post">
-        <div className="username">
-            <strong> {username}</strong>
-        </div>
+    const [postsOnFeed, setPosts] = useState([]);
 
-        <img 
-            className="postImage" 
-            src={image} 
-            alt="post content"
-        />
+    useEffect(()=> {
+        Axios.get('http://localhost:3001/homepage').then((response) => {
+            console.log(response);
+            setPosts(response.data);
+        }); 
+    }, []);
 
-        <div className="artworkName">
-            <strong> {artworkName}</strong>
-        </div>
+    return (<div className="card">
+        { postsOnFeed.map((val)=> {
+            return (
+                <div className="post">
+                    <div className="username">
+                        <strong> {username} </strong>
+                    </div>
 
-        <div className="description">
-            <strong> {description}</strong>
-        </div>
-    
+                    <img 
+                        className="postImage" 
+                        src={image} 
+                        alt="post content"
+                    />
+
+                    <div className="artworkName">
+                        <strong> {val.artworkName}</strong>
+                    </div>
+
+                    <div className="description">
+                        <strong> {val.prodDesc}</strong>
+                    </div>
+                </div>
+            )
+        })}
     </div>
     );
 }
