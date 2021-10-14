@@ -1,5 +1,4 @@
 import '../styles/App.scss';
-import Navigation from "./Navigation";
 import React from 'react';
 import Card from "./Posts";
 

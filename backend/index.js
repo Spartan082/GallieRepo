@@ -1,10 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require("mysql");
+const path = require("path");
 const app = express();
+const PORT = 8000;
 
 app.use(cors());
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, "../frontend", "build")));
 
 const db = mysql.createConnection({
     host: 'galliedb.c1j5afoliojj.us-east-1.rds.amazonaws.com',
@@ -13,7 +17,7 @@ const db = mysql.createConnection({
     database: 'Galliedb'
 });
 
-app.get("/", (req, res) => {
+app.get("/posts", (req, res) => {
     const sqlSelect = "SELECT * FROM Post";
     db.query(sqlSelect, (err, result) => {
         //console.log(result);
@@ -25,6 +29,6 @@ app.get("/", (req, res) => {
     });
 });
 
-app.listen(3001, () => {
-    console.log('running on port 3001');
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
 });
