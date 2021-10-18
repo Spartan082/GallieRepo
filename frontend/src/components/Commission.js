@@ -5,7 +5,6 @@ import Card from "./Posts";
 function Commission() {
   return (
     <div className="posts">
-
             <Card 
                 username="Commisssion"
                 image="https://picsum.photos/800/900"

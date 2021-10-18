@@ -18,7 +18,8 @@ const db = mysql.createConnection({
 });
 
 app.get("/posts", (req, res) => {
-    const sqlSelect = "SELECT * FROM Post";
+    const sqlSelect = "SELECT * FROM Post,Profile WHERE Post.profileID = Profile.profileID " 
+        + "ORDER BY Post.postDate DESC";
     db.query(sqlSelect, (err, result) => {
         //console.log(result);
         if (err) {

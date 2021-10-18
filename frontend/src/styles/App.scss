@@ -13,16 +13,16 @@ main {
     margin-top: 60px;
 
     .container {
-        display: flex;
-        justify-content: left;
+        //display: flex;
+        justify-content: center;
         margin: 0 auto;
-        max-width: fit-content;
+        min-width: fit-content;
     }
 }
 
 a {
     text-decoration: none;
-    color: $link-color;
+    color: $border-color-blue;
     font-size: 0.9em;
     font-weight: 500;
 }

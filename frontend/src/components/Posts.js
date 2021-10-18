@@ -1,35 +1,17 @@
 import "../styles/posts.scss";
-import Axios from "axios";
-import React, { useState, useEffect } from 'react';
 
-function Posts(props) {
-    const {
-        username,
-        image,
-    } = props;
-
-    const [postsOnFeed, setPosts] = useState([]);
-
-    useEffect(() => {
-        Axios
-            .get('http://localhost:8000/posts')
-            .then((response) => {
-                //console.log(response);
-                setPosts(response.data);
-            }); 
-    }, []);
-
-    return (<div className="card">
-        { postsOnFeed.map((val)=> {
+function Posts({postsOnFeed}) {
+    return (<ul className="card">
+        { postsOnFeed.map(val => {
             return (
                 <div className="post">
                     <div className="username">
-                        <strong> {username ? username : "Test User"} </strong>
+                        <strong>{val.username}</strong>
                     </div>
 
                     <img 
                         className="postImage" 
-                        src={image ? image : "https://picsum.photos/800/900"} 
+                        src={"https://picsum.photos/800/900"} 
                         alt="post content"
                     />
 
@@ -42,8 +24,9 @@ function Posts(props) {
                     </div>
                 </div>
             )
-        })}
-    </div>
+            })
+        }
+    </ul>
     );
 }
 
