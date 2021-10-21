@@ -1,6 +1,10 @@
 import "../styles/posts.scss";
+import React from 'react';
 
 function Posts({postsOnFeed}) {
+
+    const awsRoute = 'https://gallie-artwork-images.s3.amazonaws.com/';    
+
     return (<ul className="card">
         { postsOnFeed.map(val => {
             return (
@@ -8,10 +12,10 @@ function Posts({postsOnFeed}) {
                     <div className="username">
                         <strong>{val.username}</strong>
                     </div>
-
+                    
                     <img 
                         className="postImage" 
-                        src={"https://picsum.photos/800/900"} 
+                        src={awsRoute + val.artworkURL} 
                         alt="post content"
                     />
 
@@ -30,4 +34,4 @@ function Posts({postsOnFeed}) {
     );
 }
 
-export default Posts;
+export default Posts; 
