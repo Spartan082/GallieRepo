@@ -1,5 +1,4 @@
 import "../styles/posts.scss";
-import React from 'react';
 
 function Posts({postsOnFeed}) {
 

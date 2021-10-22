@@ -13,9 +13,26 @@ const db = mysql.createConnection({
     host: 'galliedb.c1j5afoliojj.us-east-1.rds.amazonaws.com',
     user: 'admin',
     password: '#Gallie143',
-    database: 'Galliedb'
+    database: 'Galliedb',
+    port: 3306
 });
 
+/* Info Queries */
+/* ------------------------------------------------------------------------------------------------------------------------------ */
+app.get("/info", (req, res) => {
+    const sqlSelect = "SELECT * FROM Template";
+    db.query(sqlSelect, (err, result) => {
+        //console.log(result);
+        if (err) {
+            console.log(err);
+          } else {
+            res.send(result);
+          }
+    });
+});
+
+/* Post Queries */
+/* ------------------------------------------------------------------------------------------------------------------------------ */
 app.get("/posts", (req, res) => {
     const sqlSelect = "SELECT * FROM Post,Profile WHERE Post.profileID = Profile.profileID " 
         + "ORDER BY Post.postDate DESC";
@@ -28,12 +45,6 @@ app.get("/posts", (req, res) => {
           }
     });
 });
-
-app.use(express.static('../frontend/build'));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-    });
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);

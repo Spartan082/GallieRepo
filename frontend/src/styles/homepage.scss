@@ -1,7 +1,6 @@
 @import 'properties';
 
 .homepage {
-    padding-top: 85px;
 
     .search {   
         border: 1px solid $border-color-blue;
@@ -48,13 +47,11 @@
 // Mini devices (landscape phones, 576px and below)
 @media screen and (max-width: 576px) { 
     .homepage {
-        padding-top: 66px ;
     }
  }
 
 // Mini devices (landscape phones, 576px and below)
 @media screen and (min-width: 576px) and (max-width:786px) { 
     .homepage {
-        padding-top: 70px;
     }
  }
