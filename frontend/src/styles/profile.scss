@@ -1,0 +1,245 @@
+@import 'properties';
+
+.profile {
+body {
+    //margin: 0;
+    // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    //   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    //   sans-serif;
+    //-webkit-font-smoothing: antialiased;
+    //-moz-osx-font-smoothing: grayscale;
+  
+    /*added from front end tutorial*/
+     /*primary color of button*/
+     --color-primary: #ee631d;
+     /*color of button when hover over it*/
+     --color-primary-dark: #08face;
+     --color-secondary: #252c6a;
+     --color-error: #cc3333;
+     --color-success: #4bb544;
+     --border-radius: 4px;
+  
+    // margin: 0;
+     height: 100vh;
+     //display: flex; 
+      align-items: center;
+     //justify-content: center;
+     font-size: 16px;
+     /*color for background showing primary button color*/
+     //background:  #F3A57F;
+     background-color: $background-grey;
+     background-size: cover;
+  }
+
+// //   main {
+// //     background-color: $background-grey;
+// //     margin-top: 60px;
+// //     justify-content: center;
+
+    
+//.form__input_group{   
+    .container {
+        align-items: center;
+        justify-content: center;
+        width: 400px;
+        max-width: 400px;
+        margin: 1rem;
+        padding: 2rem;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+        border-radius: var(--border-radius);
+        background: #ffffff;
+      }
+        
+//  }
+
+//   /*added from other tutorial*/
+//   /*box holding login info size and color */
+// //   .container {
+// //     justify-content: center;
+// //     width: 400px;
+// //     max-width: 400px;
+// //     margin: 1rem;
+// //     padding: 2rem;
+// //     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+// //     border-radius: var(--border-radius);
+// //     background: #ffffff;
+// //   }
+  
+  
+// //   code {
+// //     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+// //       monospace;
+// //   }
+  
+//    /* .header{
+//     margin: 2em 0 2em 2em;
+//     font-size: 1em;
+//     border-bottom: 1px solid;
+  
+//   } */
+  
+  /* header for home, register, login, premium content */
+//   .header a {
+//     margin: 0 1em 0 1em;
+//     font-size: 1.2em;
+//     text-decoration: none;
+  
+//   }
+  
+//   /* test align and size */
+//   .content{
+//   /* margin-left: 1em; */
+//   font-size: 1.2em;
+  
+//   } 
+  
+  /* error message size and color */
+  /* link below used to wrap words */
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Text/Wrapping_Text */
+  .message {
+    color: red;
+    font-size: 1.2em;
+    inline-size: 450px;
+      overflow-wrap: break-word;
+  
+  }
+  
+//   /* from other turtrial  */
+  
+   /*font of everything */
+//   .container,
+  .form__input,
+  .form__button {
+      font: 500 1rem 'Quicksand', sans-serif;
+  }
+  
+  /*existence of login and sign up toggle*/
+  .form--hidden {
+      display: none;
+  }
+  
+  /*gets rid of top margin*/
+  .form > *:first-child {
+      margin-top: 0;
+  }
+  
+  /*gets rid of bottom margin*/
+  .form > *:last-child {
+      margin-bottom: 0;
+  }
+  
+  /*login title*/
+  .form__title {
+      margin-bottom: 1rem;
+      text-align: center;
+  }
+  
+  .form__message {
+      text-align: center;
+      margin-bottom: 1rem;
+  }
+  
+  /*error message color*/
+  .form__message--success {
+      color: var(--color-success);
+  }
+  
+  .form__message--error {
+      color: var(--color-error);
+  }
+  
+  /*space between input boxes*/
+  .form__input-group {
+      margin-bottom: -.5rem;
+  }
+  
+  /*input boxes look like*/
+  .form__input {
+      display: block;
+      width: 95%;
+      align-items: center;
+      padding: 0.75rem;
+      box-sizing: border-box;
+      border-radius: var(--border-radius);
+      border: 1px solid #dddddd;
+      outline: none;
+      background: #eeeeee;
+      transition: background 0.2s, border-color 0.2s;
+  }
+  
+  /*color for when click on field box*/
+  .form__input:focus {
+      border-color: var(--color-primary);
+      background: #ffffff;
+  }
+  
+  /*error type in box color*/
+  .form__input--error {
+      color: var(--color-error);
+      border-color: var(--color-error);
+  }
+  
+//   /*err0r message font and color*/
+//   /* .form__input-error-message {
+//       margin-top: 0.5rem;
+//       font-size: 0.85rem;
+//       color: var(--color-error);
+//   } */
+  
+  /*button for continue */
+  .form__button {
+      width: 95%;
+      padding: 1rem 2rem;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #ffffff;
+      border: none;
+      border-radius: var(--border-radius);
+      outline: none;
+      cursor: pointer;
+      background: var(--color-primary);
+  }
+  
+  /*hover over button*/
+  .form__button:hover {
+      background: var(--color-primary-dark);
+  }
+  
+  /*click button*/
+  .form__button:active {
+      transform: scale(0.98);
+  }
+  
+  .form__text {
+      text-align: center;
+  }
+  
+  /*link at bottom look*/
+  .form__link {
+      color: var(--color-secondary);
+      text-decoration: none;
+      cursor: pointer;
+      
+  }
+  
+  /*hover over links*/
+  .form__link:hover {
+      text-decoration: underline;
+  }
+}
+
+  // Mini devices (landscape phones, 576px and below)
+@media screen and (max-width: 576px) { 
+    .profile {
+        font-size: 12px;
+    }
+ }
+
+// Mini devices (landscape phones, 576px and below)
+@media screen and (min-width: 576px) and (max-width:786px) { 
+    .profile {
+        font-size: 16px;
+    }
+ }
+
