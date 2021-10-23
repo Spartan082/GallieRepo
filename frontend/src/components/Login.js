@@ -44,8 +44,10 @@ const Login = (props) => {
   }
 
   return (
+    <div align="center">
     <div className="profile"> 
       <form onSubmit={submitHandler}>
+      <div class="form_container">
         <h1 class="form__title">Login</h1>
         <div class="form__message form__message--error"></div>
             <div class="form__input-group">
@@ -57,7 +59,7 @@ const Login = (props) => {
                 <div class="form__input-error-message"></div>
             </div>
             <button class="form__button" type="submit">Continue</button>
-      </form>
+      
       {errorMessage && <p className="message">{errorMessage}</p>}
       <p class="form__text">
                 <NavLink class="form__link" activeClassName="active" to="/forgot-password">Forgot your password?</NavLink>
@@ -65,7 +67,11 @@ const Login = (props) => {
             <p class="form__text">
                 <NavLink class="form__link" activeClassName="active" to="/Create Account">Don't have a Profile? Create Profile</NavLink>
             </p>
+            </div>
+      </form>
     </div>
+    </div>
+    
   )
 }
 

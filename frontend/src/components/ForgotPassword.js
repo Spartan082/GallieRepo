@@ -40,8 +40,10 @@ const ForgotPassword = () => {
     }
   
     return (
+      <div align="center">
       <div className="profile"> 
         <form onSubmit={submitHandler}>
+        <div class="form_container">
           <h1 class="form__title">Forgot Password</h1>
       <div class="form__message form__message--error"></div>
         <div class="form__input-group">
@@ -49,8 +51,10 @@ const ForgotPassword = () => {
             <div class="form__input-error-message"></div>
         </div>
         <button class="form__button" type="submit">Send Confirmation</button>
+        </div>
         </form>
         {message && <p className="message">{message}</p>}
+      </div>
       </div>
     )
   }

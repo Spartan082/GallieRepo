@@ -46,8 +46,10 @@ const CreateAccount = () => {
   }
 
   return (
+    <div align="center">
     <div className="profile"> 
       <form onSubmit={submitHandler}>
+      <div class="form_container">
         <h1 class="form__title">Create Profile</h1>
           <div class="form__input-group">
                 <input type="text" class="form__input" autofocus placeholder="Name" value={name} onChange={event => setName(event.target.value)} /> <br/>
@@ -74,8 +76,10 @@ const CreateAccount = () => {
           <p class="form__text">
                 <NavLink class="form__link" activeClassName="active" to="/login">Already have a Profile? Sign in</NavLink>
           </p>
+          </div>
       </form>
       {message && <p className="message">{message}</p>}
+    </div>
     </div>
   )
 }

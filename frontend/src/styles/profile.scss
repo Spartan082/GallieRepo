@@ -21,9 +21,9 @@ body {
   
     // margin: 0;
      height: 100vh;
-     //display: flex; 
-      align-items: center;
-     //justify-content: center;
+     display: flex; 
+     align-items: center;
+     justify-content: center;
      font-size: 16px;
      /*color for background showing primary button color*/
      //background:  #F3A57F;
@@ -31,14 +31,9 @@ body {
      background-size: cover;
   }
 
-// //   main {
-// //     background-color: $background-grey;
-// //     margin-top: 60px;
-// //     justify-content: center;
-
     
-//.form__input_group{   
-    .container {
+ 
+    .form_container {
         align-items: center;
         justify-content: center;
         width: 400px;
@@ -50,7 +45,7 @@ body {
         background: #ffffff;
       }
         
-//  }
+
 
 //   /*added from other tutorial*/
 //   /*box holding login info size and color */
@@ -71,12 +66,12 @@ body {
 // //       monospace;
 // //   }
   
-//    /* .header{
-//     margin: 2em 0 2em 2em;
-//     font-size: 1em;
-//     border-bottom: 1px solid;
+   /* .header{
+    margin: 2em 0 2em 2em;
+    font-size: 1em;
+    border-bottom: 1px solid;
   
-//   } */
+  } 
   
   /* header for home, register, login, premium content */
 //   .header a {
@@ -87,11 +82,11 @@ body {
 //   }
   
 //   /* test align and size */
-//   .content{
-//   /* margin-left: 1em; */
-//   font-size: 1.2em;
+  .content{
+  /* margin-left: 1em; */
+  font-size: 1.2em;
   
-//   } 
+  } 
   
   /* error message size and color */
   /* link below used to wrap words */
@@ -198,12 +193,15 @@ body {
       border-radius: var(--border-radius);
       outline: none;
       cursor: pointer;
-      background: var(--color-primary);
+      background: #ee631d;
+    //   #ee7a0e;
+    //   var(--color-primary);
   }
   
   /*hover over button*/
   .form__button:hover {
-      background: var(--color-primary-dark);
+      background: #08face;
+    //   var(--color-primary-dark);
   }
   
   /*click button*/
@@ -217,7 +215,8 @@ body {
   
   /*link at bottom look*/
   .form__link {
-      color: var(--color-secondary);
+      color: #252c6a;
+    //    var(--color-secondary);
       text-decoration: none;
       cursor: pointer;
       
