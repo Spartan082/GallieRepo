@@ -6,6 +6,7 @@ const app = express();
 const PORT = 8000;
 
 app.use(cors());
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../frontend", "build")));
 
@@ -43,6 +44,26 @@ app.get("/posts", (req, res) => {
           } else {
             res.send(result);
           }
+    });
+});
+
+app.post('/uploadArt', (req, res) => {
+    // store all the post input data
+    const id = req.body.profileID;
+    const name = req.body.artworkName;
+    const desc = req.body.prodDesc;
+    const date = req.body.postDate;
+    const image = req.body.artworkURL;
+   
+    // insert post data into post table
+    var sql = "INSERT INTO Post (profileID, artworkName, prodDesc, postDate, artworkURL) VALUES (?, ?, ?, ?, ?)";
+    db.query(sql, [id, name, desc, date, image], (err, result) => { 
+        if (err) {
+            throw err;
+        } else {
+            console.log("Post data was successfully uploaded."); 
+            res.send(result);
+        }
     });
 });
 

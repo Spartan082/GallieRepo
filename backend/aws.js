@@ -1,52 +1,37 @@
-require('dotenv').config(); // Loading dotenv to have access to env variables
-const AWS = require('aws-sdk'); // Requiring AWS SDK.
+import React , {useState} from 'react';
+import { uploadFile } from 'react-s3';
 
-// Configuring AWS
-AWS.config = new AWS.Config({
-  accessKeyId: process.env.S3_KEY, 
-  secretAccessKey: process.env.S3_SECRET, 
-  region: process.env.BUCKET_REGION,
-  bucket: process.env.BUCKET_NAME
-});
 
-// Creating a S3 instance
-const s3 = new AWS.S3();
+const S3_BUCKET ='gallie-artwork-images';
+const REGION ='us-east-1';
+const ACCESS_KEY ='AKIASXCPVCMKISRN3YGD';
+const SECRET_ACCESS_KEY ='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';
 
-// GET URL
-function generateGetUrl(Key) {
-  return new Promise((resolve, reject) => {
-    const params = {
-      Bucket,
-      Key,
-      Expires: 120 // 2 minutes
-    };
-    // Note operation in this case is getObject
-    s3.getSignedUrl('getObject', params, (err, url) => {
-      if (err) {
-        reject(err);
-      } else {
-        // If there is no errors we will send back the pre-signed GET URL
-        resolve(url);
-      }
-    });
-  });
+const config = {
+    bucketName: S3_BUCKET,
+    region: REGION,
+    accessKeyId: ACCESS_KEY,
+    secretAccessKey: SECRET_ACCESS_KEY,
 }
 
-// PUT URL Generator
-function generatePutUrl(Key, ContentType) {
-  return new Promise((resolve, reject) => {
-    // Note Bucket is retrieved from the env variable above.
-    const params = { Bucket, Key, ContentType };
-    // Note operation in this case is putObject
-    s3.getSignedUrl('putObject', params, function(err, url) {
-      if (err) {
-        reject(err);
-      }
-      // If there is no errors we can send back the pre-signed PUT URL
-      resolve(url);
-    });
-  });
+const UploadImageToS3WithReactS3 = () => {
+
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileInput = (e) => {
+        setSelectedFile(e.target.files[0]);
+    }
+
+    const handleUpload = async (file) => {
+        uploadFile(file, config)
+            .then(data => console.log(data))
+            .catch(err => console.error(err))
+    }
+
+    return <div>
+        <input type="file" onChange={handleFileInput}/>
+        <button onClick={() => handleUpload(selectedFile)}> Upload to S3</button>
+    </div>
 }
 
-// Finally, we export the methods so we can use it in our main application.
-module.exports = { generateGetUrl, generatePutUrl };
+export default UploadImageToS3WithReactS3;
