@@ -10,17 +10,17 @@ const Artwork = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [filename, setFilename] = useState('');
 
-  const S3_BUCKET ='gallie-artwork-images';
-  const REGION ='us-east-1';
-  const ACCESS_KEY =process.env.S3_KEY;
-  const SECRET_ACCESS_KEY =process.env.S3_SECRET;
-
   const config = {
-      bucketName: S3_BUCKET,
-      region: REGION,
-      accessKeyId: ACCESS_KEY,
-      secretAccessKey: SECRET_ACCESS_KEY,
+      bucketName: process.env.REACT_APP_BUCKET_NAME,
+      region: process.env.REACT_APP_BUCKET_REGION,
+      accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY,
+      secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY,
   }
+
+  console.log(config.bucketName);
+  console.log(config.region);
+  console.log(config.accessKeyId);
+  console.log(config.secretAccessKey);
 
   const handleFileInput = (e) => {
       setSelectedFile(e.target.files[0]);
