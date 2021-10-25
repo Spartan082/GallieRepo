@@ -12,8 +12,8 @@ const Artwork = () => {
 
   const S3_BUCKET ='gallie-artwork-images';
   const REGION ='us-east-1';
-  const ACCESS_KEY ='AKIASXCPVCMKISRN3YGD';
-  const SECRET_ACCESS_KEY ='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';
+  const ACCESS_KEY =process.env.S3_KEY;
+  const SECRET_ACCESS_KEY =process.env.S3_SECRET;
 
   const config = {
       bucketName: S3_BUCKET,
