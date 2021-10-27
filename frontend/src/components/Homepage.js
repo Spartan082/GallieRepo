@@ -1,5 +1,5 @@
 import "../styles/homepage.scss";
-import Posts from "./Posts";
+import Posts from "../functions/Posts";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 
 

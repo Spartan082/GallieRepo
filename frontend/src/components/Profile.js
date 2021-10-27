@@ -1,16 +1,10 @@
 import '../styles/App.scss';
 import React from 'react';
-import Card from "./Posts";
 
 function Profile() {
   return (
     <div className="posts">
-        <Card 
-                username="Profile"
-                image="https://picsum.photos/800/"
-                artworkName="Work 2"
-                description="Like!"
-        />
+        <h2>Profile</h2>
     </div>
   );
 }
