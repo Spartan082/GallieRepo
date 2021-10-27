@@ -2,7 +2,7 @@ import "../styles/posts.scss";
 
 function Posts({postsOnFeed}) {
 
-    const awsRoute = 'https://gallie-artwork-images.s3.amazonaws.com/';    
+    const awsRoute = 'https://gallie-artwork-images-prod.s3.amazonaws.com/';    
 
     return (<ul className="card">
         { postsOnFeed.map(val => {
