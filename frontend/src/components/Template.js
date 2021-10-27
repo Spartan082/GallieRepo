@@ -1,5 +1,5 @@
 import "../styles/homepage.scss";
-import TemplateInfo from "../functions/ArtType";
+import TemplateInfo from "../functions/artType";
 import UploadTemplate from "../functions/UploadTemplate";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 

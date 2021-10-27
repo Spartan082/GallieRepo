@@ -17,11 +17,6 @@ const Artwork = () => {
       secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY,
   }
 
-  console.log(config.bucketName);
-  console.log(config.region);
-  console.log(config.accessKeyId);
-  console.log(config.secretAccessKey);
-
   const handleFileInput = (e) => {
       setSelectedFile(e.target.files[0]);
       setFilename(e.target.files[0]?.name);
