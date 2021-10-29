@@ -49,8 +49,7 @@ const Artwork = () => {
     setMessage(null);
 
     //get the current date
-    var today = new Date();
-    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var date = new Date();
 
     const requestBody = {
       profileID: '031771113',
