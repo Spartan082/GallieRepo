@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { uploadFile } from 'react-s3';
 import axios from 'axios'; 
 
-const Artwork = () => {
+const UploadArtwork = () => {
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -102,5 +102,5 @@ const Artwork = () => {
     );
 }
   
-  export default Artwork;
+  export default UploadArtwork;
   

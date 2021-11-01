@@ -14,7 +14,8 @@ import VRequest from "./ViewRequest";
 import Account from "./CreateAccount";
 import Login from "./Login";
 import Logout from "./Logout";
-import Artwork from "./Artwork";
+import UploadArtwork from "./UploadArtwork";
+import RemoveArtwork from "./RemoveArtwork";
 import Rates from "./Rates";
 import Invoice from "./CreateInvoice";
 import VInvoice from "./ViewInvoice";
@@ -85,7 +86,8 @@ function App() {
               <Route path="/Create Account" component={Account}/>
               <Route path="/Login" component={Login}/>
               <PrivateRoute path="/Logout" component={Logout}/>
-              <Route path="/Artwork" component={Artwork}/>
+              <Route path="/UploadArtwork" component={UploadArtwork}/>
+              <Route path="/RemoveArtwork" component={RemoveArtwork}/>
               <Route path="/Rates" component={Rates}/>
               <Route path="/Create Invoice" component={Invoice}/>
               <Route path="/View Invoice" component={VInvoice}/>

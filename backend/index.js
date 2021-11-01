@@ -15,7 +15,8 @@ const db = mysql.createConnection({
     user: 'admin',
     password: '#Gallie143',
     database: 'Galliedb',
-    port: 3306
+    port: 3306,
+    timezone: 'UTC'
 });
 
 /* Info Queries */
@@ -102,6 +103,21 @@ app.get("/posts", (req, res) => {
     });
 });
 
+app.get("/postById", (req, res) => {
+  console.log(req.query.profileID);
+  console.log(req.query.artworkName);
+
+  const sqlSelect = "SELECT * FROM Post WHERE profileID = " + req.query.profileID + " AND artworkName = '" + req.query.artworkName + "'";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          console.log(result);
+          res.send(result);
+        }
+  });
+});
+
 app.post('/uploadArt', (req, res) => {
     // store all the post input data
     const id = req.body.profileID;
@@ -120,6 +136,21 @@ app.post('/uploadArt', (req, res) => {
             res.send(result);
         }
     });
+});
+
+app.delete('/deleteArt', (req, res) => {
+  // delete post data from post table
+  var sql = "DELETE FROM Post WHERE " 
+    + "profileId = " + req.body.profileID
+    + " AND artworkName = '" + req.body.artworkName + "'";
+  db.query(sql, (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log("Post data was successfully deleted."); 
+          res.send(result);
+      }
+  });
 });
 
 app.post('/TemplateModify', (req, res) => {

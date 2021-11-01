@@ -26,7 +26,8 @@ function Menu() {
                         <Link to="/Login"><span className="#">Login</span></Link>
                         <Link to="/Create Account"><span className="#">Create Account</span></Link>
                         <Link to="/Logout"><span className="#">Logout</span></Link>
-                        <Link to="/Artwork"><span className="#">Artwork</span></Link>
+                        <Link to="/UploadArtwork"><span className="#">Upload Artwork</span></Link>
+                        <Link to="/RemoveArtwork"><span className="#">Remove Artwork</span></Link>
                         <Link to="/Rates"><span className="#">Rates</span></Link>
                     </div>
                 </div>
