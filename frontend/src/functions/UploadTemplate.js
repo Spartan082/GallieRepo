@@ -1,21 +1,9 @@
 import React, { useState } from 'react';
 import { uploadFile } from 'react-s3';
 import axios from 'axios';
+import NumberGenerator from './NumberGenerator';
 
 function UploadTemplate() {
-
-    const NumberGenerator = () => {
-        var chars = '1234567890',
-        serialLength = 9, randomSerial = "", i, randomNumber;
-        for (i = 0; i < serialLength; i = i + 1) {
-            randomNumber = Math.floor(Math.random() * chars.length);
-            randomSerial += chars.substring(randomNumber, randomNumber + 1);
-        }
-        return randomSerial;
-    }
-
-    console.log(NumberGenerator());
-
     const [artType, setArtType] = useState('');
     const [artPrice, setPrice] = useState(0);
     const [artDescription, setArtDescription] = useState('');

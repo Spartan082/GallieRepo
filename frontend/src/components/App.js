@@ -3,13 +3,11 @@ import "../styles/homepage.scss";
 import Homepage from "./Homepage.js";
 import Menu from "./Menu.js";
 import React, { useState, useEffect }  from 'react';
-import Commission from "./Commission";
 import Template from "./Template";
 import Profile from "./Profile";
 import Message from "./Message";
-import Invoices from "./Invoices";
 import Management from "./Management";
-import Request from "./CreateReport";
+import Request from "./CreateRequest";
 import VRequest from "./ViewRequest";
 import Account from "./CreateAccount";
 import Login from "./Login";
@@ -75,11 +73,9 @@ function App() {
             <Switch>
               <Route path="/" exact component={Homepage}/>
               {/* <Route path="/posts" exact component={Posts}/> */}
-              <Route path="/Commission" component={Commission}/>
               <Route path="/Template" component={Template}/>
               <Route path="/Profile" component={Profile}/>
               <Route path="/Message" component={Message}/>
-              <Route path="/Invoices" component={Invoices}/>
               <Route path="/Community Management" component={Management}/>
               <Route path="/Create Request" component={Request}/>
               <Route path="/View Request" component={VRequest}/>

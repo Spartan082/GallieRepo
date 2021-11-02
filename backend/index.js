@@ -88,6 +88,19 @@ app.get("/info/logo", (req, res) => {
   });
 });
 
+app.get("/ViewRequest", (req, res) => {
+  console.log(req.query.artistUsername);
+
+  const sqlSelect = "SELECT * FROM Request WHERE artistUsername = '" + req.query.artistUsername + "'";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
 /* Post Queries */
 /* ------------------------------------------------------------------------------------------------------------------------------ */
 app.get("/posts", (req, res) => {
@@ -165,6 +178,50 @@ app.post('/TemplateModify', (req, res) => {
   // insert post data into post table
   var sql = "INSERT INTO Template (templateVersionID, artType, artPrice, artDesc, artExURL, postDate) VALUES (?, ?, ?, ?, ?, ?)";
   db.query(sql, [id, artType, artPrice, artDesc, image, date], (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log("Post data was successfully uploaded."); 
+          res.send(result);
+      }
+  });
+});
+
+app.post('/CreateRequest', (req, res) => {
+  // store all the post input data
+  const id = req.body.requestID;
+  const customerEmail = req.body.customerEmail;
+  const artistUsername = req.body.artistUsername;
+  const prodName = req.body.prodName;
+  const initialPrice = req.body.initialPrice;
+  const prodDesc = req.body.prodDesc;
+ 
+  // insert post data into post table
+  var sql = "INSERT INTO Request (requestID, customerEmail, artistUsername, prodName, initialPrice, prodDesc) VALUES (?, ?, ?, ?, ?, ?)";
+  console.log(sql);
+  db.query(sql, [id, customerEmail, artistUsername, prodName, initialPrice, prodDesc], (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log("Post data was successfully uploaded."); 
+          res.send(result);
+      }
+  });
+});
+
+app.post('/CreateInvoice', (req, res) => {
+  // store all the post input data
+  const id = req.body.invoiceID;
+  const artistEmail = req.body.artistEmail;
+  const customerEmail = req.body.customerEmail;
+  const prodCost = req.body.prodCost;
+  const prodDesc = req.body.prodDesc;
+  const paymentType = req.body.paymentType;
+  const paymentStatus = 'Pending';
+ 
+  // insert post data into post table
+  var sql = "INSERT INTO Invoice (invoiceID, artistEmail, customerEmail, prodCost, prodDesc, paymentType, paymentStatus) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  db.query(sql, [id, artistEmail, customerEmail, prodCost, prodDesc, paymentType, paymentStatus], (err, result) => { 
       if (err) {
           throw err;
       } else {
