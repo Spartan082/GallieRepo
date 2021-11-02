@@ -2,7 +2,7 @@ import '../styles/App.scss';
 import "../styles/homepage.scss";
 import Homepage from "./Homepage.js";
 import Menu from "./Menu.js";
-import React, { useState, useEffect }  from 'react';
+import React from 'react';
 import Template from "./Template";
 import Profile from "./Profile";
 import Message from "./Message";
@@ -26,43 +26,13 @@ import ForgotPassword from "./ForgotPassword";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import PublicRoute from "./routes/PublicRoute";
 import PrivateRoute from "./routes/PrivateRoute";
-import { getUser, getToken, setUserSession, resetUserSession } from "./service/AuthService";
-import axios from "axios";
+//import { getUser, getToken, setUserSession, resetUserSession } from "./service/AuthService";
+//import axios from "axios";
 
-const verifyTokenAPIURL = 'https://pk3vioz5q4.execute-api.us-east-1.amazonaws.com/gallieprod3/verify';
 
 function App() {
-  const [isAuthenicating, setAuthenicating] = useState(true);
+ 
 
-  useEffect(() => {
-    const token = getToken();
-    if (token === 'undefined' || token === undefined || token === null || !token) {
-      return;
-    }
-
-    const requestConfig = {
-      headers: {
-        'x-api-key': '2tjbJfuJBWrpkvAUu5ax6lwdXKiYepG6yZhm9EJg'
-      }
-    }
-    const requestBody = {
-      user: getUser(),
-      token: token
-    }
-
-    axios.post(verifyTokenAPIURL, requestBody, requestConfig).then(response => {
-      setUserSession(response.data.user, response.data.token);
-      setAuthenicating(false);
-    }).catch(() => {
-      resetUserSession();
-      setAuthenicating(false);
-    })
-  }, []);
-
-  const token = getToken();
-  if (isAuthenicating && token) {
-    return <div className="content">Authenicating...</div>
-  }
 
   return (
     <Router>

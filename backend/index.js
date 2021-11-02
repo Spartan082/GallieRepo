@@ -231,6 +231,51 @@ app.post('/CreateInvoice', (req, res) => {
   });
 });
 
+//register account
+// --------------------------------------------------------------------
+app.post("/register", (req, res) => {
+  const id = req.body.profileID;
+  const email = req.body.email;
+  const username = req.body.username;
+  const password = req.body.password;
+  const status = req.body.status;
+
+ // insert  data into profile table
+ var sql = "INSERT INTO Profile (profileID, email, username, password, status, strikes, settings) VALUES (?, ?, ?, ?, ?, ?, ?)";
+ db.query(sql, [id, email, username, password, status, 0, 'Default'], (err, result) => { 
+     if (err) {
+         throw err;
+     } else {
+         res.send(result);
+         console.log("Registration successfully uploaded."); 
+     }
+ });
+});
+
+//login
+//-------------------------------------------------------------------------------------------------------------
+app.post("/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  const sqlSelect = "SELECT * FROM Profile WHERE username = ? AND password = ?";
+ 
+ db.query(sqlSelect, [ username, password ], (err, result) => { 
+  if (err) {
+    throw err;
+  } 
+  if (result.length > 0) {
+    res.send(result);
+    console.log("Login was successful."); 
+
+  }
+  else {
+    res.send({message: "Wrong username/password combination"}) ;
+    console.log("Incorrect");
+  }
+});
+});
+
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
