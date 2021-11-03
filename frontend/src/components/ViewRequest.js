@@ -7,7 +7,7 @@ function ViewRequest() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8000/ViewRequest', {
+      .get(process.env.REACT_APP_IP_ADDRESS + '/ViewRequest', {
       params: { artistUsername: 'ConnorR', }
       })
       .then((res) => {

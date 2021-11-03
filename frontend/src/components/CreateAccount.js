@@ -43,7 +43,7 @@ const CreateAccount = () => {
     console.log(requestBody);
 
    //add post info to database
-   axios.post('http://localhost:8000/register', requestBody)
+   axios.post(process.env.REACT_APP_IP_ADDRESS + '/register', requestBody)
    .then((res) => { 
      //console.log(res.data)
      setMessage('Registration Successful');

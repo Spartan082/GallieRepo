@@ -60,7 +60,7 @@ const UploadArtwork = () => {
     }
 
     //add post info to database
-    axios.post('http://localhost:8000/uploadArt', requestBody)
+    axios.post(process.env.REACT_APP_IP_ADDRESS + '/uploadArt', requestBody)
       .then((res) => {
         //console.log(res.data)
         setMessage('Upload Successful');

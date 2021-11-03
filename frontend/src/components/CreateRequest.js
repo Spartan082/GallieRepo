@@ -32,7 +32,7 @@ function CreateRequest() {
     console.log(requestBody);
 
     //add post info to database
-    axios.post('http://localhost:8000/CreateRequest', requestBody)
+    axios.post(process.env.REACT_APP_IP_ADDRESS + '/CreateRequest', requestBody)
         .then((res) => {
         //console.log(res.data)
         setMessage('Submission Successful');

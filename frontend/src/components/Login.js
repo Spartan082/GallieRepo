@@ -24,7 +24,7 @@ const Login = (props) => {
       password: password
     }
 
-  axios.post('http://localhost:8000/login', requestBody)
+  axios.post(process.env.REACT_APP_IP_ADDRESS + '/login', requestBody)
     .then((res) => {
       //console.log(res.data)
       console.log(res);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const forgotPasswordUrl = 'https://pk3vioz5q4.execute-api.us-east-1.amazonaws.com/gallieprod3/forgotPassoword';
+const forgotPasswordUrl = process.env.REACT_APP_IP_ADDRESS + '/forgotPassoword';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');

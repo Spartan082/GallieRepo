@@ -34,7 +34,7 @@ const RemoveArtwork = () => {
 
     //delete post info to database
     axios
-      .delete('http://localhost:8000/deleteArt', 
+      .delete(process.env.REACT_APP_IP_ADDRESS + '/deleteArt', 
         { data : 
           {  
             profileID: response[0].profileID,
@@ -59,7 +59,7 @@ const RemoveArtwork = () => {
       return;
     }
 
-    axios.get('http://localhost:8000/postById', {
+    axios.get(process.env.REACT_APP_IP_ADDRESS + '/postById', {
         params: {
             profileID: '031771113',
             artworkName: artworkName,

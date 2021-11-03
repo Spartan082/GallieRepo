@@ -9,7 +9,7 @@ function Homepage() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:8000/posts')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/posts')
             .then(response => {
                 setPosts(response.data)
             })

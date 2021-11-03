@@ -14,7 +14,7 @@ function Info() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:8000/info/icon')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/info/icon')
             .then(response => {
                 setIcon(response.data)
             })
@@ -22,7 +22,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get('http://localhost:8000/info/sketch')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/info/sketch')
             .then(response => {
                 setSketch(response.data)
             })
@@ -30,7 +30,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get('http://localhost:8000/info/lineart')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/info/lineart')
             .then(response => {
                 setLineArt(response.data)
             })
@@ -38,7 +38,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get('http://localhost:8000/info/flatcolor')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/info/flatcolor')
             .then(response => {
                 setFlatColor(response.data)
             })
@@ -46,7 +46,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get('http://localhost:8000/info/shaded')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/info/shaded')
             .then(response => {
                 setShaded(response.data)
             })
@@ -54,7 +54,7 @@ function Info() {
 
     useEffect(() => {
       axios
-          .get('http://localhost:8000/info/logo')
+          .get(process.env.REACT_APP_IP_ADDRESS + '/info/logo')
           .then(response => {
               setLogo(response.data)
           })
