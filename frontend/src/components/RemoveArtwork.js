@@ -67,7 +67,13 @@ const RemoveArtwork = () => {
     })
     .then((res) => {
         console.log(res.data);
-        deletePostInfo(res.data);
+        if (res.data.length !== 0) {
+          deletePostInfo(res.data);
+        }
+        else {
+          setArtworkName('');
+          setMessage('Artwork Not Found');
+        }
     }).catch((error) => {
         console.log(error)
     });
