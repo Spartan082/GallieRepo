@@ -2,6 +2,7 @@ import '../styles/profile.scss';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { NavLink} from "react-router-dom";
+import NumberGenerator from '../functions/NumberGenerator';
 
 
 
@@ -14,15 +15,6 @@ const CreateAccount = () => {
   const [status, setStatus] = useState('');
   const [message, setMessage] = useState(null);
 
-  const NumberGenerator = () => {
-    var chars = '1234567890',
-    serialLength = 9, randomSerial = "", i, randomNumber;
-    for (i = 0; i < serialLength; i = i + 1) {
-        randomNumber = Math.floor(Math.random() * chars.length);
-        randomSerial += chars.substring(randomNumber, randomNumber + 1);
-    }
-    return randomSerial;
-}
 
     const submitForm = () => {
      

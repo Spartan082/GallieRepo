@@ -5,9 +5,38 @@ const path = require("path");
 const app = express();
 const PORT = 8000;
 
-app.use(cors());
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
+const bcrypt = require('bcrypt');
+const saltRounds =10; 
+
+//app.use(cors());
 
 app.use(express.json());
+
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  methods: ["GET", "POST"],
+  credentials: true,
+})
+);
+
+app.use(cookieParser());
+app.use(express.urlencoded({extended: true}));
+
+app.use(session({
+  key: "userID",
+  secret: "gallieUserLog",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    // cookie expires in 24 hours after made
+    expires: 60 * 60 * 24,
+  },
+}))
+
 app.use(express.static(path.join(__dirname, "../frontend", "build")));
 
 const db = mysql.createConnection({
@@ -240,41 +269,78 @@ app.post("/register", (req, res) => {
   const password = req.body.password;
   const status = req.body.status;
 
- // insert  data into profile table
- var sql = "INSERT INTO Profile (profileID, email, username, password, status, strikes, settings) VALUES (?, ?, ?, ?, ?, ?, ?)";
- db.query(sql, [id, email, username, password, status, 0, 'Default'], (err, result) => { 
-     if (err) {
-         throw err;
-     } else {
-         res.send(result);
-         console.log("Registration successfully uploaded."); 
-     }
- });
-});
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+
+
+    if (err) {
+      console.log(err);
+    }
+  
+   // insert  data into profile table
+   var sql = "INSERT INTO Profile (profileID, email, username, password, status, strikes, settings) VALUES (?, ?, ?, ?, ?, ?, ?)";
+   db.query(sql, [id, email, username, hash, status, 0, 'Default'], (err, result) => { 
+       if (err) {
+           throw err;
+       } 
+       else {
+           res.send(result);
+           console.log("Registration successfully uploaded."); 
+       }
+    });
+   });
+  });
 
 //login
 //-------------------------------------------------------------------------------------------------------------
+app.get('/login',(req, res) => {
+  if (req.session.user){
+    res.send({loggedIn: true, user: req.session.user});
+  } else{
+    res.send({loggedIn: false, user: req.session.user});
+  }
+});
+
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  const sqlSelect = "SELECT * FROM Profile WHERE username = ? AND password = ?";
+  const sqlSelect = "SELECT * FROM Profile WHERE username = ?";
  
- db.query(sqlSelect, [ username, password ], (err, result) => { 
-  if (err) {
-    throw err;
-  } 
-  if (result.length > 0) {
-    res.send(result);
-    console.log("Login was successful."); 
+  db.query(sqlSelect, [ username ], (err, result) => { 
+    if (err) {
+      throw err;
+    }  
+    if (result.length > 0) {
+      bcrypt.compare(password,result[0].password, (error, response) => {
+        if (response){
+          req.session.user = result;
+          console.log(req.session.user);
+          req.session.loggedin = true;
+          req.session.username = username;
+          res.send(result);
+          console.log("Login was successful."); 
+        }
+        else{
+          res.send({message: "Wrong username/password combination"}) ;
+        }
+      });
+      
+  
+    }
+    else {
+      res.send({message: "User does not exist"}) ;
+      console.log("Incorrect");
+    }
+  });
+  });
 
-  }
-  else {
-    res.send({message: "Wrong username/password combination"}) ;
-    console.log("Incorrect");
-  }
-});
-});
+  app.get('/logout',(req,res) => {
+    res.clearCookie('userID').send();
+    req.logout();
+    req.session.destroy();
+    console.log("Logout successful");
+    //res.redirect('/');
+  });
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
