@@ -1,11 +1,13 @@
 import '../styles/profile.scss';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 //import { setUserSession } from './service/AuthService'
 import { NavLink} from "react-router-dom";
 
 
 const Login = (props) => {
+  axios.defaults.withCredentials = true;
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
@@ -30,6 +32,8 @@ const Login = (props) => {
       console.log(res);
       if(res.data.message){
         setLoginStatus(res.data.message);
+        if(res.data.loggedIn === true) {
+          setLoginStatus(res.data.user[0].username);}
       }
       else{
         setLoginStatus(res.data[0].username);
@@ -41,6 +45,16 @@ const Login = (props) => {
     });
 
   } 
+
+  useEffect(() => {
+    axios.get(process.env.REACT_APP_IP_ADDRESS + '/login').then((res) => {
+      //console.log(response);
+      if(res.data.loggedIn === true) {
+      setLoginStatus(res.data.user[0].username);
+  
+      }
+    });
+  }, []);
 
   return (
     <div align="center">
