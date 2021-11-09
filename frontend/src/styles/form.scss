@@ -1,0 +1,102 @@
+@import 'properties';
+
+.form ul {
+    width: 100%;
+    overflow: hidden;
+    background-color: $background-white;
+    padding: 0 10px 0 10px;
+    overflow-wrap: break-word;
+  }
+.form li {
+    font-size: 1.25rem;
+    padding: 5px;
+    max-width: 600px;
+    line-height: 1.5em;
+    float: left;
+    display: inline;
+  }
+.form li strong {
+    color: $border-color-blue;
+}
+
+.form #double li {
+    width: 45%;
+  }
+.form #double li:nth-child(even) {
+    margin-left: 5px;
+  }
+
+.section h1{
+    text-align: center;
+    color: $background-white;
+    font-size: 2.0rem;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: $border-color-blue;
+}
+
+.section p{
+    text-align: center;
+}
+
+.section button {
+    font-size: 2rem;
+    background-color: $background-grey;
+    color: $background-white;
+    border: none;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: $border-color-blue;
+    &:hover {
+        cursor: pointer;
+    }  
+}
+
+.section #double button {
+    font-size: 2rem;
+    background-color: $background-white;
+    color: $background-white;
+    border: none;
+    margin: none;
+    -webkit-text-stroke-width: none;
+    -webkit-text-stroke-color: none;
+    &:hover {
+        cursor: pointer;
+    }  
+}
+
+.form{
+    border: 1px solid $border-color-blue;
+    border-width: 3px;
+    border-top: 1px;
+    background-color: $background-color-orange;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5% 0 5%;
+    padding: 3% 5% 3% 5%;
+}
+
+.form table ul{
+    padding: 1rem;
+    margin: 0 auto 0 auto;
+    border: 1px solid $border-color-blue;
+    background-color: $background-white;
+}
+
+.form table li {
+    list-style-type: none;
+    font-size: 1.2rem;
+}
+
+.form table{
+    width: 100%;
+    border: 1px solid $border-color-blue;
+    background-color: $background-white;
+    text-align: center;
+}
+
+.form table th, .form table td {
+    border: 1px solid $border-color-blue;
+    width: 10rem;
+    max-width: 200px;
+    overflow-wrap: break-word;
+}
