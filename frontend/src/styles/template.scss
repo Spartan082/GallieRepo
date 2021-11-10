@@ -1,0 +1,24 @@
+@import 'properties';
+
+.template h1 {
+    text-align: center;
+    font-size: 2rem;
+    background-color: $background-grey;
+    color: $background-white;
+    border: none;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: $border-color-blue;
+    &:hover {
+        cursor: pointer;
+    }  
+}
+.template li{
+    text-align: left;
+    list-style-type: none;
+}
+
+.template li button{
+    padding: 0 auto 0 auto;
+    border: none;
+    background-color: $background-color-orange;
+}

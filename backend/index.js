@@ -118,9 +118,63 @@ app.get("/info/logo", (req, res) => {
 });
 
 app.get("/ViewRequest", (req, res) => {
-  console.log(req.query.artistUsername);
+  const sqlSelect = "SELECT * FROM Request WHERE artistUsername = '" + req.query.artistUsername + "' ORDER BY postDate DESC";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
 
-  const sqlSelect = "SELECT * FROM Request WHERE artistUsername = '" + req.query.artistUsername + "'";
+app.get("/ViewInvoice", (req, res) => {
+  const sqlSelect = "SELECT * FROM Invoice WHERE artistEmail = '" + req.query.email + "' ORDER BY postDate DESC";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
+app.get("/CheckVariable", (req, res) => {
+  const sqlSelect = "SELECT COUNT(1) FROM " + req.query.variableTable + "  WHERE " + req.query.variableName + " = '" + req.query.variable + "'";
+  console.log(sqlSelect);
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
+app.get("/ViewSpecificRequest", (req, res) => {
+  const sqlSelect = "SELECT * FROM Request WHERE requestID = '" + req.query.requestID + "'";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
+app.get("/ViewSpecificInvoice", (req, res) => {
+  const sqlSelect = "SELECT * FROM Invoice WHERE invoiceID = '" + req.query.invoiceID + "'";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
+app.get("/ViewPendingInvoice", (req, res) => {
+  const sqlSelect = "SELECT * FROM Invoice WHERE paymentStatus = 'Pending' ORDER BY postDate DESC;";
   db.query(sqlSelect, (err, result) => {
       if (err) {
           console.log(err);
@@ -160,6 +214,18 @@ app.get("/postById", (req, res) => {
   });
 });
 
+app.get("/CheckStatus", (req, res) => {
+  const sqlSelect = "SELECT paymentStatus FROM Invoice WHERE invoiceID = '" + req.query.invoiceID + "'";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          console.log(result);
+          res.send(result);
+        }
+  });
+});
+
 app.post('/uploadArt', (req, res) => {
     // store all the post input data
     const id = req.body.profileID;
@@ -178,6 +244,21 @@ app.post('/uploadArt', (req, res) => {
             res.send(result);
         }
     });
+});
+
+app.delete('/deleteArt', (req, res) => {
+  // delete post data from post table
+  var sql = "DELETE FROM Post WHERE " 
+    + "profileId = " + req.body.profileID
+    + " AND artworkName = '" + req.body.artworkName + "'";
+  db.query(sql, (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log("Post data was successfully deleted."); 
+          res.send(result);
+      }
+  });
 });
 
 app.delete('/deleteArt', (req, res) => {
@@ -224,11 +305,11 @@ app.post('/CreateRequest', (req, res) => {
   const prodName = req.body.prodName;
   const initialPrice = req.body.initialPrice;
   const prodDesc = req.body.prodDesc;
+  const postDate = req.body.postDate;
  
   // insert post data into post table
-  var sql = "INSERT INTO Request (requestID, customerEmail, artistUsername, prodName, initialPrice, prodDesc) VALUES (?, ?, ?, ?, ?, ?)";
-  console.log(sql);
-  db.query(sql, [id, customerEmail, artistUsername, prodName, initialPrice, prodDesc], (err, result) => { 
+  var sql = "INSERT INTO Request (requestID, customerEmail, artistUsername, prodName, initialPrice, prodDesc, postDate) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  db.query(sql, [id, customerEmail, artistUsername, prodName, initialPrice, prodDesc, postDate], (err, result) => { 
       if (err) {
           throw err;
       } else {
@@ -247,10 +328,29 @@ app.post('/CreateInvoice', (req, res) => {
   const prodDesc = req.body.prodDesc;
   const paymentType = req.body.paymentType;
   const paymentStatus = 'Pending';
+  const postDate = req.body.postDate;
  
   // insert post data into post table
-  var sql = "INSERT INTO Invoice (invoiceID, artistEmail, customerEmail, prodCost, prodDesc, paymentType, paymentStatus) VALUES (?, ?, ?, ?, ?, ?, ?)";
-  db.query(sql, [id, artistEmail, customerEmail, prodCost, prodDesc, paymentType, paymentStatus], (err, result) => { 
+  var sql = "INSERT INTO Invoice (invoiceID, artistEmail, customerEmail, prodCost, prodDesc, paymentType, paymentStatus, postDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  db.query(sql, [id, artistEmail, customerEmail, prodCost, prodDesc, paymentType, paymentStatus, postDate], (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log("Post data was successfully uploaded."); 
+          res.send(result);
+      }
+  });
+});
+
+app.post('/UpdatePendingInvoice', (req, res) => {
+  // store all the post input data
+  const id = req.body.invoiceID;
+  const paymentStatus = 'Submitted';
+ 
+  // insert post data into post table
+  var sql = "UPDATE INVOICE SET paymentStatus = '" + paymentStatus + "' WHERE invoiceID = '" + id + "'";
+  console.log(sql);
+  db.query(sql, (err, result) => { 
       if (err) {
           throw err;
       } else {
@@ -341,6 +441,19 @@ app.post("/login", (req, res) => {
     console.log("Logout successful");
     //res.redirect('/');
   });
+
+app.put('/ChangeStatus', (req, res) => {
+  var sql = "UPDATE Invoice SET paymentStatus = '" + req.body.Status + "' WHERE invoiceID = '" + req.body.invoiceID + "'";
+  console.log(sql);
+  db.query(sql, (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log("Put data was successfully updated."); 
+          res.send(result);
+      }
+  });
+});
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);

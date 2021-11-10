@@ -1,4 +1,4 @@
-import "../styles/homepage.scss";
+import "../styles/template.scss";
 import TemplateInfo from "../functions/artType";
 import UploadTemplate from "../functions/UploadTemplate";
 import React, { useState, useEffect } from 'react';
@@ -142,11 +142,12 @@ function Info() {
     }
 
   return (
-    <div>
+    <div className = "template">
       <h1>Creating Artist Rate Template</h1>
-      <li className="item"><button onClick={FormOnClick}>Modify</button>
-      {showForm ? <UploadTemplate /> : null}</li>
+      <div>
       <ul>
+        <li className="item"><button onClick={FormOnClick}>Modify</button>
+      `{showForm ? <UploadTemplate /> : null}</li>
         <li className="item"><button onClick={IconOnClick}>Icon</button>
         {showIcon ? <TemplateInfo templateInfo = {icon} /> : null}</li>
         <li className="item"><button onClick={SketchOnClick}>Sketch</button>
@@ -160,6 +161,7 @@ function Info() {
         <li className="item"><button onClick={LogoOnClick}>Logo</button>
         {showLogo ? <TemplateInfo templateInfo = {logo} /> : null}</li>
       </ul>
+      </div>
     </div>
   );
 }

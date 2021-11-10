@@ -7,6 +7,8 @@ function Homepage() {
     const [search, setSearch] = useState('');
     const [posts, setPosts] = useState([])
 
+    console.log(process.env.REACT_APP_IP_ADDRESS + '/posts');
+
     useEffect(() => {
         axios
             .get(process.env.REACT_APP_IP_ADDRESS + '/posts')

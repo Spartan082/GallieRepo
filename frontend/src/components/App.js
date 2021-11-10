@@ -26,6 +26,9 @@ import ForgotPassword from "./ForgotPassword";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import PublicRoute from "./routes/PublicRoute";
 import PrivateRoute from "./routes/PrivateRoute";
+import ViewRequestDetails from './ViewRequestDetails';
+import ViewInvoiceDetails from './ViewInvoiceDetails';
+import ViewPendingDetails from './ViewPendingDetails';
 //import { getUser, getToken, setUserSession, resetUserSession } from "./service/AuthService";
 //import axios from "axios";
 
@@ -63,6 +66,9 @@ function App() {
               <Route path="/Remove Profile" component={Remove}/>
               <Route path="/Pending Invoice" component={PInvoice}/>
               <PublicRoute path="/forgot-password" component={ForgotPassword}/>
+              <Route path="/ViewRequestDetails/:id" component={ViewRequestDetails} />
+              <Route path="/ViewInvoiceDetails/:id" component={ViewInvoiceDetails} />
+              <Route path="/ViewPendingDetails/:id" component={ViewPendingDetails} />
             </Switch>
           </div>
         </main>

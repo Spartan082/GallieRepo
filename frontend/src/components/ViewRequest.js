@@ -11,13 +11,12 @@ function ViewRequest() {
       params: { artistUsername: 'ConnorR', }
       })
       .then((res) => {
-          console.log(res.data);
           setRequest(res.data);
       })
     }, [])
 
     return (
-      <div>
+      <div className = "section">
         <h1>View Request</h1>
         <GetRequest request = {request} />
       </div>

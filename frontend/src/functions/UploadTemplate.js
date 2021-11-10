@@ -69,7 +69,7 @@ function UploadTemplate() {
         console.log(requestBody);
 
         //add post info to database
-        axios.post('http://localhost:8000/TemplateModify', requestBody)
+        axios.post(process.env.REACT_APP_IP_ADDRESS + '/TemplateModify', requestBody)
             .then((res) => {
             //console.log(res.data)
             setMessage('Upload Successful');
@@ -83,7 +83,8 @@ function UploadTemplate() {
     }
 
     return (
-        <div className="UploadTemp"> 
+        <div align="center">
+        <div className="profile"> 
             <div className="form_container">
                 <h1 className="form__title">Upload Artwork</h1>
     
@@ -121,6 +122,7 @@ function UploadTemplate() {
             </div>
 
             {message && <p className="message">{message}</p>}
+        </div>
         </div>
       );
 }

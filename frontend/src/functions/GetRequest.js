@@ -1,18 +1,35 @@
-function GetRequest({request}) {  
+import "../styles/form.scss";
+import {
+  BrowserRouter as 
+  Route,
+  Link
+} from "react-router-dom";
+import ViewRequestDetails from "../components/ViewRequestDetails";
+import ConvertTimestamp from "../functions/ConvertTimestamp";
 
-    return (<ul>
-        { request.map(val => {
-          return (
-            <ul>
-              <li><strong>{val.requestID}</strong></li>
-              <li><strong>{val.customerEmail}</strong></li>
-              <li><strong>{val.artistUsername}</strong></li>
-              <li><strong>{val.prodName}</strong></li>
-              <li><strong>{val.initialPrice.toFixed(2)}</strong></li>
-              <li><strong>{val.prodDesc}</strong></li>
-            </ul>  
+function GetRequest({request}) {  
+    return (<div className = "form">
+        <table>
+        <tr>
+            <th>Request ID</th>
+            <th>Email</th>
+            <th>Product Name</th>
+            <th>Date</th>
+            <th>Review</th>
+          </tr>
+          { request.map(val => {
+            return (
+              <tr>
+                <Route path="/ViewRequestDetails/:id" component={ViewRequestDetails} />
+                <td><strong>{val.requestID}</strong></td>
+                <td><strong>{val.customerEmail}</strong></td>
+                <td><strong>{val.prodName}</strong></td>
+                <td><strong>{ConvertTimestamp(val.postDate)}</strong></td>
+                <td><Link to={"/ViewRequestDetails/" + val.requestID}>Review</Link></td>
+              </tr>
         )})}
-      </ul>
+        </table>
+      </div>
     );
 }
 

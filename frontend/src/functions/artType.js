@@ -1,10 +1,11 @@
 function ArtType({templateInfo}) {
     const awsRoute = 'https://gallie-artwork-images.s3.amazonaws.com/';  
 
-    return (<ul>
+    return (
+    <ul>
         { templateInfo.map(val => {
             return (
-                <ul>
+                <ul align="center">
                     <li><strong>{val.artType}</strong></li>
                     <li><strong>${val.artPrice.toFixed(2)}</strong></li>
                     <li><strong>{val.artDesc}</strong></li>
