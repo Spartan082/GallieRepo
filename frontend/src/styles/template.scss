@@ -1,6 +1,6 @@
 @import 'properties';
 
-.template h1 {
+div.template h1 {
     text-align: center;
     font-size: 2rem;
     background-color: $background-grey;
@@ -12,13 +12,37 @@
         cursor: pointer;
     }  
 }
+
 .template li{
-    text-align: left;
+    text-align: center;
+    font-size: 1.5rem;
     list-style-type: none;
 }
 
-.template li button{
-    padding: 0 auto 0 auto;
-    border: none;
+.template li button {
+    width: 9.375rem;
+    border: 1px solid $border-color-blue;
+    color: $background-white;
+    background-color: $background-color-orange;
+}
+
+.templateSet li{
+    font-size: 1.25rem;
+    padding: 10px 5% 10px 5%;
+    text-align: left;
+    color: $background-white;
+    overflow-wrap: break-word;
+}
+
+.templateSet li img{
+    width: 100%;
+}
+
+.templateSet ul{
+    margin: 10px auto 0 auto;
+    border: 1px solid $border-color-blue;
+    padding: 0;
+    width: 80%;
+    max-width: 800px;
     background-color: $background-color-orange;
 }
