@@ -15,7 +15,7 @@ function CreateInvoice() {
 
   const submitForm = () => {
     //make sure all fields are populated
-    if (EmailVal(artistEmail) === false || EmailVal(customerEmail) === false || prodDesc.trim() === '' || prodCost <= 0) {
+    if (EmailVal(artistEmail) === false || EmailVal(customerEmail) === false || prodDesc.trim() === '' || prodCost <= 0 || paymentType.trim() === '' || (paymentType !== 'Gallie' && paymentType !== 'Personal')) {
         var message = "All fields are required and valid\n";
         if(EmailVal(artistEmail) === false){
             message = message + "Invalid Artist Email\n";
@@ -28,6 +28,10 @@ function CreateInvoice() {
         }
         if(prodCost <= 0){
             message = message + "Invalid Price\n";
+        }
+        console.log(paymentType);
+        if(paymentType.trim() === '' || (paymentType !== 'Gallie' && paymentType !== 'Personal')){
+            message = message + "Invalid Payment Type\n";
         }
         console.log(message);
         alert(message);

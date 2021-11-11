@@ -140,6 +140,7 @@ function Info() {
         setShowLogo(!showLogo);
       }
     }
+  
 
   return (
     <div className = "template">
@@ -147,7 +148,7 @@ function Info() {
       <div>
       <ul>
         <li className="item"><button onClick={FormOnClick}>Modify</button>
-      `{showForm ? <UploadTemplate /> : null}</li>
+      {showForm ? <UploadTemplate /> : null}</li>
         <li className="item"><button onClick={IconOnClick}>Icon</button>
         {showIcon ? <TemplateInfo templateInfo = {icon} /> : null}</li>
         <li className="item"><button onClick={SketchOnClick}>Sketch</button>
