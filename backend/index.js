@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use(cors({
   origin: ["http://localhost:3000"],
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST", "DELETE"],
   credentials: true,
 })
 );
@@ -200,9 +200,6 @@ app.get("/posts", (req, res) => {
 });
 
 app.get("/postById", (req, res) => {
-  console.log(req.query.profileID);
-  console.log(req.query.artworkName);
-
   const sqlSelect = "SELECT * FROM Post WHERE profileID = " + req.query.profileID + " AND artworkName = '" + req.query.artworkName + "'";
   db.query(sqlSelect, (err, result) => {
       if (err) {
@@ -261,21 +258,31 @@ app.delete('/deleteArt', (req, res) => {
   });
 });
 
-app.delete('/deleteArt', (req, res) => {
-  // delete post data from post table
-  var sql = "DELETE FROM Post WHERE " 
-    + "profileId = " + req.body.profileID
-    + " AND artworkName = '" + req.body.artworkName + "'";
-  db.query(sql, (err, result) => { 
+/* Report Queries */
+/* ------------------------------------------------------------------------------------------------------------------------------ */
+app.post('/uploadReport', (req, res) => {
+  // store all the post input data
+  const id = req.body.reportID;
+  const type = req.body.reportType;
+  const details = req.body.reportDetails;
+  const desc = req.body.reportDesc;
+  const status = req.body.reportStatus;
+  const profileId = req.body.profileId;
+ 
+  // insert post data into post table
+  var sql = "INSERT INTO ReportType (reportID, reportType, reportDetails, reportDesc, reportStatus, profileID) VALUES (?, ?, ?, ?, ?, ?)";
+  db.query(sql, [id, type, details, desc, status, profileId], (err, result) => { 
       if (err) {
           throw err;
       } else {
-          console.log("Post data was successfully deleted."); 
+          console.log("Report data was successfully uploaded."); 
           res.send(result);
       }
   });
 });
 
+/* Template Queries */
+/* ------------------------------------------------------------------------------------------------------------------------------ */
 app.post('/TemplateModify', (req, res) => {
   // store all the post input data
   const id = req.body.templateVersionID;
@@ -297,6 +304,8 @@ app.post('/TemplateModify', (req, res) => {
   });
 });
 
+/* Request Queries */
+/* ------------------------------------------------------------------------------------------------------------------------------ */
 app.post('/CreateRequest', (req, res) => {
   // store all the post input data
   const id = req.body.requestID;
@@ -357,6 +366,20 @@ app.post('/UpdatePendingInvoice', (req, res) => {
           console.log("Post data was successfully uploaded."); 
           res.send(result);
       }
+  });
+});
+
+/* Profile Queries */
+/* ------------------------------------------------------------------------------------------------------------------------------ */
+app.get("/profileByUsername", (req, res) => {
+  const sqlSelect = "SELECT * FROM Profile WHERE username = '" + req.query.username + "'";
+  db.query(sqlSelect, (err, result) => {
+      //console.log(result);
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
   });
 });
 

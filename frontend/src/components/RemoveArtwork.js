@@ -75,7 +75,8 @@ const RemoveArtwork = () => {
           setMessage('Artwork Not Found');
         }
     }).catch((error) => {
-        console.log(error)
+        console.log(error);
+        setMessage("An Error Occured. Please Try Again.");
     });
 
 
