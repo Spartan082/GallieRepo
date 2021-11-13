@@ -28,10 +28,9 @@
 
 .section h1{
     text-align: center;
-    color: $background-white;
+    color: $border-color-blue;
     font-size: 2.0rem;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: $border-color-blue;
+    -webkit-text-stroke-width: 0.5px;
 }
 
 .section p{
@@ -41,10 +40,9 @@
 .section button {
     font-size: 2rem;
     background-color: $background-grey;
-    color: $background-white;
+    color: $border-color-blue;
     border: none;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: $border-color-blue;
+    -webkit-text-stroke-width: 0.5px;
     &:hover {
         cursor: pointer;
     }  
@@ -53,25 +51,47 @@
 .section #double button {
     font-size: 2rem;
     background-color: $background-white;
-    color: $background-white;
-    border: none;
+    color: $black;
+    border: 2px solid $border-color-blue;
     margin: none;
-    -webkit-text-stroke-width: none;
-    -webkit-text-stroke-color: none;
+    -webkit-text-stroke-width: 0.5px;
+
+    &:hover {
+        cursor: pointer;
+    }  
+}
+
+.section #buttons {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    
+
+   .goBack {
+        text-align: center;
+        display: flex;
+        width: 150px;
+   }
+
+   .resolve {
+        text-align: center;
+        display: flex;
+        width: 150px;
+   }
+
     &:hover {
         cursor: pointer;
     }  
 }
 
 .form{
-    border: 1px solid $border-color-blue;
-    border-width: 3px;
-    border-top: 1px;
+    border: 3px solid $border-color-blue;
     background-color: $background-color-orange;
     display: block;
     align-items: center;
     justify-content: center;
-    margin: 0 5% 0 5%;
+    margin: 5%;
     padding: 3% 5% 3% 5%;
 }
 
@@ -92,6 +112,10 @@
     border: 1px solid $border-color-blue;
     background-color: $background-white;
     text-align: center;
+}
+
+.form table th {
+    color: $border-color-blue;
 }
 
 .form table th, .form table td {

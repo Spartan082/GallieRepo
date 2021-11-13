@@ -1,4 +1,5 @@
 import ConvertTimestamp from "../functions/ConvertTimestamp";
+import { Link } from "react-router-dom";
 
 function GetRequestDetails({details}) {  
 
@@ -18,6 +19,9 @@ function GetRequestDetails({details}) {
               <li>{val.prodDesc}</li>
               <li><strong>Date:</strong></li>
               <li>{ConvertTimestamp(val.postDate)}</li>
+              <ul id="buttons">
+                    <Link className='goBack' to="/View Request"><button>Go Back</button></Link>
+              </ul>
             </ul>   
         )})}
       </div>

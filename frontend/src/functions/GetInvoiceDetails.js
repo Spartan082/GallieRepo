@@ -1,4 +1,5 @@
 import ConvertTimestamp from "../functions/ConvertTimestamp";
+import { Link } from "react-router-dom";
 
 function GetInvoiceDetails({invoiceDetails}) {  
 
@@ -22,6 +23,9 @@ function GetInvoiceDetails({invoiceDetails}) {
               <li>{val.paymentStatus}</li>
               <li><strong>Date:</strong></li>
               <li>{ConvertTimestamp(val.postDate)}</li>
+              <ul id="buttons">
+                    <Link className='goBack' to="/View Invoice"><button>Go Back</button></Link>
+              </ul>
             </ul>   
         )})}
       </div>

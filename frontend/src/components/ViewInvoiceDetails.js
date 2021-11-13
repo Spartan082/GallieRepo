@@ -19,7 +19,7 @@ function ViewInvoiceDetails() {
 
     return (
       <div className = "section">
-        <p><Link to="/View Invoice"><button>Go Back</button></Link></p>
+        {/* <p><Link to="/View Invoice"><button>Go Back</button></Link></p> */}
         <GetInvDetails invoiceDetails = {invoiceDetails} />
       </div>
     );

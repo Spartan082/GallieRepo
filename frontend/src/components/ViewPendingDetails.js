@@ -21,7 +21,7 @@ function ViewPendingDetails() {
 
     return (
       <div className = "section">
-        <p><Link to="/Pending Invoice"><button>Go Back</button></Link></p>
+        {/* <p><Link to="/Pending Invoice"><button>Go Back</button></Link></p> */}
         <GetPenDetails details = {details} />
       </div>
     );

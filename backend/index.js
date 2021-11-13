@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use(cors({
   origin: ["http://localhost:3000"],
-  methods: ["GET", "POST", "DELETE"],
+  methods: ["GET", "POST", "DELETE", "PUT"],
   credentials: true,
 })
 );
@@ -117,6 +117,17 @@ app.get("/info/logo", (req, res) => {
   });
 });
 
+app.get("/ViewReport", (req, res) => {
+  const sqlSelect = "SELECT * FROM ReportType";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
 app.get("/ViewRequest", (req, res) => {
   const sqlSelect = "SELECT * FROM Request WHERE artistUsername = '" + req.query.artistUsername + "' ORDER BY postDate DESC";
   db.query(sqlSelect, (err, result) => {
@@ -146,6 +157,18 @@ app.get("/CheckVariable", (req, res) => {
       if (err) {
           console.log(err);
         } else {
+          res.send(result);
+        }
+  });
+});
+
+app.get("/ViewSpecificReport", (req, res) => {
+  const sqlSelect = "SELECT * FROM ReportType WHERE reportID = '" + req.query.reportID + "'";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          console.log(result);
           res.send(result);
         }
   });
@@ -463,6 +486,19 @@ app.post("/login", (req, res) => {
     req.session.destroy();
     console.log("Logout successful");
     //res.redirect('/');
+  });
+
+  app.put('/ChangeReportStatus', (req, res) => {
+    var sql = "UPDATE ReportType SET reportStatus = '" + req.body.Status + "' WHERE reportID = '" + req.body.reportID + "'";
+    console.log(sql);
+    db.query(sql, (err, result) => { 
+        if (err) {
+            throw err;
+        } else {
+            console.log("Put data was successfully updated."); 
+            res.send(result);
+        }
+    });
   });
 
 app.put('/ChangeStatus', (req, res) => {

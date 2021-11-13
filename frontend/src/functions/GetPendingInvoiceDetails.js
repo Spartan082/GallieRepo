@@ -58,7 +58,11 @@ function GetPendingInvoiceDetails({details}) {
               <li>{val.paymentStatus}</li>
               <li><strong>Date:</strong></li>
               <li>{ConvertTimestamp(val.postDate)}</li>
-              <li><Link to="/"><button onClick={ChangeStatus}>Submit</button></Link></li>
+              
+              <ul id="buttons">
+                    <Link className='goBack' to="/Pending Invoice"><button>Go Back</button></Link>
+                    <Link className="resolve" to="/Pending Invoice"><button onClick={ChangeStatus}>Submit</button></Link>
+                </ul>
             </ul>   
         )})}
       </div>

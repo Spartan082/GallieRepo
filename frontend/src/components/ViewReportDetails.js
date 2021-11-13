@@ -1,16 +1,16 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import GetReqDetails from '../functions/GetRequestDetails'; 
+import GetRepDetails from '../functions/GetReportDetails'; 
 
-function ViewRequestDetails() {
+function ViewReportDetails() {
   const { id } = useParams();
   const [details, setDetails] = useState([])
-console.log(id);
+
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_IP_ADDRESS + '/ViewSpecificRequest', {
-      params: { requestID: id, }
+      .get(process.env.REACT_APP_IP_ADDRESS + '/ViewSpecificReport', {
+      params: { reportID: id, }
       })
       .then((res) => {
           setDetails(res.data);
@@ -19,10 +19,10 @@ console.log(id);
 
     return (
       <div className = "section">
-        {/* <p><Link to="/View Request"><button>Go Back</button></Link></p> */}
-        <GetReqDetails details = {details} />
+        {/* <p><Link to="/View Report"><button>Go Back</button></Link></p> */}
+        <GetRepDetails details = {details} />
       </div>
     );
 }
 
-export default ViewRequestDetails;
+export default ViewReportDetails;
