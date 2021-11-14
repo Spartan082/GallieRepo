@@ -70,6 +70,18 @@ function CreateReport() {
       return;
     }
 
+    //make sure all fields do not exceed maximum length
+    if(artistName.length > 29)
+    {
+      setMessage('Artist Username is too long. Maximum length is 29 characters.');
+      return;
+    }
+    else if (description.length > 249)
+    {
+      setMessage('Description of Violation is too long. Maximum length is 249 characters.');
+      return;
+    }
+
     console.log(artistName);
      //add post info to database
      axios.get(process.env.REACT_APP_IP_ADDRESS + '/profileByUsername',  {

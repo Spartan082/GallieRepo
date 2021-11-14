@@ -43,6 +43,23 @@ const UploadArtwork = () => {
       return;
     }
 
+    //make sure all fields do not exceed maximum length
+    if(name.length > 29)
+    {
+      setMessage('Artwork Name is too long. Maximum length is 29 characters.');
+      return;
+    }
+    else if (description.length > 249)
+    {
+      setMessage('Artwork Description is too long. Maximum length is 249 characters.');
+      return;
+    }
+    else if (filename.length > 49)
+    {
+      setMessage('Filename is too long. Maximum length is 49 characters.');
+      return;
+    }
+
     //add the image to s3 bucket
     handleUpload(selectedFile);
    

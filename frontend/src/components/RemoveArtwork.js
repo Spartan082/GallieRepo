@@ -59,6 +59,13 @@ const RemoveArtwork = () => {
       return;
     }
 
+     //make sure all fields do not exceed maximum length
+     if(artworkName.length > 29)
+     {
+       setMessage('Artwork Name is too long. Maximum length is 29 characters.');
+       return;
+     }
+
     axios.get(process.env.REACT_APP_IP_ADDRESS + '/postById', {
         params: {
             profileID: '031771113',
