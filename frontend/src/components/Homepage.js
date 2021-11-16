@@ -20,6 +20,8 @@ function Homepage() {
     const filteredPosts = search.length === 0 ? posts : 
         posts.filter(post => post.artworkName.toLowerCase().includes(search.toLowerCase()));
 
+    console.log(filteredPosts);
+
   return (
       <div className="homepage">
           <div className='search'>
