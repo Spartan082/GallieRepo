@@ -72,6 +72,15 @@ app.get("/info/sketch", (req, res) => {
         }
   });
 });
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
+
 app.get("/info/flatcolor", (req, res) => {
   const sqlSelect = "SELECT * FROM Template WHERE artType = 'Flat Color' ORDER BY postDate DESC LIMIT 1;";
   db.query(sqlSelect, (err, result) => {
