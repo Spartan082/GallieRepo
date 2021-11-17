@@ -55,7 +55,7 @@ function App() {
               <Route path="/View Request" component={VRequest}/>
               <Route path="/Create Account" component={Account}/>
               <Route path="/Login" component={Login}/>
-              <PrivateRoute path="/Logout" component={Logout}/>
+              <Route path="/Logout" component={Logout}/>
               <Route path="/UploadArtwork" component={UploadArtwork}/>
               <Route path="/RemoveArtwork" component={RemoveArtwork}/>
               <Route path="/Rates" component={Rates}/>

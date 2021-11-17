@@ -73,13 +73,6 @@ app.get("/info/sketch", (req, res) => {
   });
 });
 
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
-})
 
 app.get("/info/flatcolor", (req, res) => {
   const sqlSelect = "SELECT * FROM Template WHERE artType = 'Flat Color' ORDER BY postDate DESC LIMIT 1;";
@@ -489,10 +482,23 @@ app.post("/login", (req, res) => {
   });
   });
 
-  app.get('/logout',(req,res) => {
-    res.clearCookie('userID').send();
-    req.logout();
+//logout
+//-------------------------------------------------------------------------------------------------------------
+
+  app.get('/logout',(req, res) => {
+    if (req.session.user){
+     res.send({loggedIn: false});
+    } else{
+      res.send({loggedIn: true, user: req.session.user});
+    }
+  });
+
+  app.post('/logout',(req,res) => {
+    req.session.loggedin = false;
     req.session.destroy();
+    res.clearCookie('userID'); 
+    console.log("Cookie cleared");
+    res.send({loggedIn: false});
     console.log("Logout successful");
     //res.redirect('/');
   });
@@ -522,6 +528,15 @@ app.put('/ChangeStatus', (req, res) => {
       }
   });
 });
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
+
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);

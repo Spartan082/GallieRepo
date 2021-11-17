@@ -1,7 +1,6 @@
 import '../styles/profile.scss';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-//import { setUserSession } from './service/AuthService'
 import { NavLink} from "react-router-dom";
 
 
