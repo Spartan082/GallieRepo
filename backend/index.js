@@ -73,7 +73,6 @@ app.get("/info/sketch", (req, res) => {
   });
 });
 
-
 app.get("/info/flatcolor", (req, res) => {
   const sqlSelect = "SELECT * FROM Template WHERE artType = 'Flat Color' ORDER BY postDate DESC LIMIT 1;";
   db.query(sqlSelect, (err, result) => {
@@ -130,8 +129,30 @@ app.get("/ViewReport", (req, res) => {
   });
 });
 
+app.get("/ViewAllRequests", (req, res) => {
+  const sqlSelect = "SELECT * FROM Request ORDER BY postDate DESC";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
 app.get("/ViewRequest", (req, res) => {
   const sqlSelect = "SELECT * FROM Request WHERE artistUsername = '" + req.query.artistUsername + "' ORDER BY postDate DESC";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
+app.get("/ViewAllInvoices", (req, res) => {
+  const sqlSelect = "SELECT * FROM Invoice ORDER BY postDate DESC";
   db.query(sqlSelect, (err, result) => {
       if (err) {
           console.log(err);
@@ -224,8 +245,8 @@ app.get("/posts", (req, res) => {
     });
 });
 
-app.get("/postById", (req, res) => {
-  const sqlSelect = "SELECT * FROM Post WHERE profileID = " + req.query.profileID + " AND artworkName = '" + req.query.artworkName + "'";
+app.get("/postByName", (req, res) => {
+  const sqlSelect = "SELECT * FROM Post WHERE artworkName = '" + req.query.artworkName + "'";
   db.query(sqlSelect, (err, result) => {
       if (err) {
           console.log(err);
@@ -536,7 +557,6 @@ app.get('/*', function(req, res) {
     }
   })
 })
-
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);

@@ -3,6 +3,7 @@ import axios from 'axios';
 import AWS from 'aws-sdk';
 
 const RemoveArtwork = () => {
+  
   const [artworkName, setArtworkName] = useState('');
   const [message, setMessage] = useState(null);
 
@@ -51,6 +52,56 @@ const RemoveArtwork = () => {
       });
   }
 
+  const deleteArt = (loginStatus, profileId, profileStatus) => {
+    axios.get(process.env.REACT_APP_IP_ADDRESS + '/postByName', {
+      params: {
+          artworkName: artworkName,
+      }
+    })
+    .then((res) => {
+      console.log(res.data);
+      if (res.data.length !== 0) {
+        //if moderator account, can delete any artwork
+        if (loginStatus === true && profileStatus === "Moderator") {
+          deletePostInfo(res.data);
+        }
+        //if artist account, make sure artist is deleting only their artwork
+        else if (loginStatus === true && profileStatus === "Artist" && profileId === res.data[0].profileID) {
+          deletePostInfo(res.data);
+        }
+        else {
+          setArtworkName('');
+          setMessage('Unable to delete artwork. Please make sure you are logged in.');
+        }
+      }
+      else {
+        setArtworkName('');
+        setMessage('Artwork Not Found');
+      }
+    }).catch((error) => {
+        console.log(error);
+        setMessage("An Error Occured. Please Try Again.");
+    });
+  }
+
+  const determineLoginStatus = () => {
+    axios.get(process.env.REACT_APP_IP_ADDRESS + '/login')
+      .then((res) => {
+        console.log(res.data)
+         //if user is logged in set the profileId
+        if (res.data.loggedIn === true)
+        {
+          deleteArt(true, res.data.user[0].profileID, res.data.user[0].status);
+        }
+        else {
+          setMessage("Please login to remove artwork");
+        }
+      }).catch((error) => {
+        //console.log(error)
+        setMessage(error.message);
+      });
+  }
+
   const submitForm = () => {
     setMessage('');
     //make sure all fields are populated
@@ -66,29 +117,10 @@ const RemoveArtwork = () => {
        return;
      }
 
-    axios.get(process.env.REACT_APP_IP_ADDRESS + '/postById', {
-        params: {
-            profileID: '031771113',
-            artworkName: artworkName,
-        }
-    })
-    .then((res) => {
-        console.log(res.data);
-        if (res.data.length !== 0) {
-          deletePostInfo(res.data);
-        }
-        else {
-          setArtworkName('');
-          setMessage('Artwork Not Found');
-        }
-    }).catch((error) => {
-        console.log(error);
-        setMessage("An Error Occured. Please Try Again.");
-    });
-
-
+    //determine whether the user is logged in and take appropriate action
+    determineLoginStatus();
   }
-
+  
     return (
       <div align="center">
         <div className="profile"> 

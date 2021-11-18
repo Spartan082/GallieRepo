@@ -12,6 +12,22 @@ function Info() {
     const [shaded, setShaded] = useState([])
     const [logo, setLogo] = useState([])
 
+    const [showModifyButton, setShowModifyButton] = useState(false);
+
+    useEffect(() => {
+      axios.get(process.env.REACT_APP_IP_ADDRESS + '/login')
+        .then((res) => {
+          console.log(res.data)
+           //if user is logged in show the Modify button
+          if (res.data.loggedIn === true && res.data.user[0].status === 'Moderator')
+          {
+            setShowModifyButton(true);
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
+    }, []);
+
     useEffect(() => {
         axios
             .get(process.env.REACT_APP_IP_ADDRESS + '/info/icon')
@@ -147,8 +163,8 @@ function Info() {
       <h1>Creating Artist Rate Template</h1>
       <div>
       <ul>
-        <li className="item"><button onClick={FormOnClick}>Modify</button>
-      {showForm ? <UploadTemplate /> : null}</li>
+        <li className="item">{showModifyButton ? <button onClick={FormOnClick}>Modify</button> : null}
+        {showForm ? <UploadTemplate /> : null}</li>
         <li className="item"><button onClick={IconOnClick}>Icon</button>
         {showIcon ? <TemplateInfo templateInfo = {icon} /> : null}</li>
         <li className="item"><button onClick={SketchOnClick}>Sketch</button>

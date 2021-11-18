@@ -10,6 +10,8 @@ const UploadArtwork = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [filename, setFilename] = useState('');
 
+  const [loginStatus, setLoginStatus] = useState('');
+
   const config = {
       bucketName: process.env.REACT_APP_BUCKET_NAME,
       region: process.env.REACT_APP_BUCKET_REGION,
@@ -26,6 +28,55 @@ const UploadArtwork = () => {
     uploadFile(file, config)
       .then(data => console.log(data))
       .catch(err => console.error(err))
+  }
+
+  const uploadArt = (id) => {
+      //add the image to s3 bucket
+      handleUpload(selectedFile);
+    
+      setMessage(null);
+
+      //get the current date
+      var date = new Date();
+
+      const requestBody = {
+        profileID: id,
+        artworkName: name,
+        prodDesc: description,
+        postDate: date,
+        artworkURL: filename
+      }
+
+      //add post info to database
+      axios.post(process.env.REACT_APP_IP_ADDRESS + '/uploadArt', requestBody)
+        .then((res) => {
+          //console.log(res.data)
+          setMessage('Upload Successful');
+          setName('');
+          setDescription('');
+        }).catch((error) => {
+          //console.log(error)
+          setMessage(error.message);
+        });
+    }
+
+  const determineLoginStatus = () => {
+    axios.get(process.env.REACT_APP_IP_ADDRESS + '/login')
+      .then((res) => {
+        console.log(res.data)
+         //if user is logged in set the profileId
+        if (res.data.loggedIn === true)
+        {
+          uploadArt(res.data.user[0].profileID);
+        }
+        else {
+          setLoginStatus(false);
+          setMessage('Please login before uploading artwork');
+        }
+      }).catch((error) => {
+        //console.log(error)
+        setMessage(error.message);
+      });
   }
 
   const submitForm = () => {
@@ -60,33 +111,8 @@ const UploadArtwork = () => {
       return;
     }
 
-    //add the image to s3 bucket
-    handleUpload(selectedFile);
-   
-    setMessage(null);
-
-    //get the current date
-    var date = new Date();
-
-    const requestBody = {
-      profileID: '031771113',
-      artworkName: name,
-      prodDesc: description,
-      postDate: date,
-      artworkURL: filename
-    }
-
-    //add post info to database
-    axios.post(process.env.REACT_APP_IP_ADDRESS + '/uploadArt', requestBody)
-      .then((res) => {
-        //console.log(res.data)
-        setMessage('Upload Successful');
-        setName('');
-        setDescription('');
-      }).catch((error) => {
-        //console.log(error)
-        setMessage(error.message);
-      });
+    //determine if user is logged in and then take appropriate action
+    determineLoginStatus();    
   }
 
     return (
