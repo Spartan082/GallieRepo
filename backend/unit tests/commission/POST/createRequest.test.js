@@ -24,7 +24,7 @@ describe("Database Info Tests", () => {
       password: "#Gallie143",
       port: 3306,
       database: "Galliedb"
-    });
+    }); 
     console.log("Connected to database");
 
     await connection.query(createTestRequestTableSQL);
