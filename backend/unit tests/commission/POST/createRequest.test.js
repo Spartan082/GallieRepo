@@ -15,7 +15,7 @@ describe("Database Info Tests", () => {
   beforeEach(async () => {
     //create mock mysql tables
     let createTestRequestTableSQL =
-      "CREATE TABLE `testViewRequest` ( `id` INT(9) ZEROFILL , `customerEmail` VARCHAR(30) , `artistUsername` VARCHAR(30) , `prodName` VARCHAR(30) , `initialPrice` DECIMAL(8,2) , `prodDesc` VARCHAR(250) , `postDate` VARCHAR(50) , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+      "CREATE TABLE `testcreateRequest` ( `id` INT(9) ZEROFILL , `customerEmail` VARCHAR(30) , `artistUsername` VARCHAR(30) , `prodName` VARCHAR(30) , `initialPrice` DECIMAL(8,2) , `prodDesc` VARCHAR(250) , `postDate` VARCHAR(50) , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
     //connect to db
     connection = await createPool({
@@ -34,14 +34,14 @@ describe("Database Info Tests", () => {
     try {
       let insertQueries = [];
     
-      //populate testViewRequest table with report 1
-      let insertSQL1 = `INSERT INTO testViewRequest (id,  customerEmail, artistUsername, prodName, initialPrice, prodDesc, postDate) VALUES (${requestID}, '${email}', '${username}', '${prodName}', ${price}, '${prodDesc}', '${date}');`;
+      //populate testcreateRequest table with report 1
+      let insertSQL1 = `INSERT INTO testcreateRequest (id,  customerEmail, artistUsername, prodName, initialPrice, prodDesc, postDate) VALUES (${requestID}, '${email}', '${username}', '${prodName}', ${price}, '${prodDesc}', '${date}');`;
       insertQueries.push(connection.query(insertSQL1));
 
       await Promise.all(insertQueries);
     
       //query the test tables on the db
-      const [rows, fields] = await connection.query("SELECT * FROM testViewRequest WHERE id = '" + requestID + "' AND customerEmail = '" + email + "' AND artistUsername = '" + username 
+      const [rows, fields] = await connection.query("SELECT * FROM testcreateRequest WHERE id = '" + requestID + "' AND customerEmail = '" + email + "' AND artistUsername = '" + username 
         + "' AND prodName = '" + prodName + "' AND initialPrice = '" + price + "' AND prodDesc = '" + prodDesc + "' AND postDate = '" + date + "'");
     
       //CHECK THAT LENGTH OF RESPONSE MATCHES (should be 2)
@@ -62,7 +62,7 @@ describe("Database Info Tests", () => {
       console.log(error);
 
       //delete test tables and close db connection
-      let dropTestRequestTableSQL = "DROP TABLE IF EXISTS `testViewRequest`";
+      let dropTestRequestTableSQL = "DROP TABLE IF EXISTS `testcreateRequest`";
       await connection.query(dropTestRequestTableSQL);
       await connection.end();
       return;
@@ -71,7 +71,7 @@ describe("Database Info Tests", () => {
 
   //delete test tables and close db connection
   afterEach(async () => {
-    let dropTestRequestTableSQL = "DROP TABLE IF EXISTS `testViewRequest`";
+    let dropTestRequestTableSQL = "DROP TABLE IF EXISTS `testcreateRequest`";
     await connection.query(dropTestRequestTableSQL);
     await connection.end();
   });

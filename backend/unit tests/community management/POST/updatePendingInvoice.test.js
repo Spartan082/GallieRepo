@@ -18,7 +18,7 @@ describe("Database Info Tests", () => {
   beforeEach(async () => {
     //create mock mysql tables
     let createTestInvoicesTableSQL =
-      "CREATE TABLE `testViewPendingInvoices` ( `id` INT(9) ZEROFILL , `artistEmail` VARCHAR(30) , `customerEmail` VARCHAR(30),  `prodCost` DECIMAL(8,2),  `prodDesc` VARCHAR(250) , `paymentType` VARCHAR(30) , `paymentStatus` VARCHAR(30) ,`postDate` VARCHAR(50) , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+      "CREATE TABLE `testCreatePendingInvoices` ( `id` INT(9) ZEROFILL , `artistEmail` VARCHAR(30) , `customerEmail` VARCHAR(30),  `prodCost` DECIMAL(8,2),  `prodDesc` VARCHAR(250) , `paymentType` VARCHAR(30) , `paymentStatus` VARCHAR(30) ,`postDate` VARCHAR(50) , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
     //connect to db
     connection = await createPool({
@@ -37,17 +37,17 @@ describe("Database Info Tests", () => {
     try {
       let insertQueries = [];
     
-      //populate testViewPendingInvoices table with report 1
-      let insertSQL1 = `INSERT INTO testViewPendingInvoices (id, artistEmail, customerEmail, prodCost, prodDesc, paymentType, paymentStatus, postDate) VALUES (${id}, '${artistEmail}', '${customerEmail}', '${price}}', '${prodDesc}', '${type}', '${status}', '${date}');`;
+      //populate testCreatePendingInvoices table with report 1
+      let insertSQL1 = `INSERT INTO testCreatePendingInvoices (id, artistEmail, customerEmail, prodCost, prodDesc, paymentType, paymentStatus, postDate) VALUES (${id}, '${artistEmail}', '${customerEmail}', '${price}}', '${prodDesc}', '${type}', '${status}', '${date}');`;
       insertQueries.push(connection.query(insertSQL1));
 
-      let updateQuery = `UPDATE testViewPendingInvoices SET paymentStatus = '` + newStatus + `' WHERE id = '` + id + `'`;
+      let updateQuery = `UPDATE testCreatePendingInvoices SET paymentStatus = '` + newStatus + `' WHERE id = '` + id + `'`;
       insertQueries.push(connection.query(updateQuery));
 
       await Promise.all(insertQueries);
     
       //query the test tables on the db
-      const [rows, fields] = await connection.query("SELECT * FROM testViewPendingInvoices");
+      const [rows, fields] = await connection.query("SELECT * FROM testCreatePendingInvoices");
     
       //CHECK THAT LENGTH OF RESPONSE MATCHES (should be 2)
       expect(rows.length).toBe(1);
@@ -66,7 +66,7 @@ describe("Database Info Tests", () => {
       console.log(error);
 
       //delete test tables and close db connection
-      let dropTestInvoicesTableSQL = "DROP TABLE IF EXISTS `testViewPendingInvoices`";
+      let dropTestInvoicesTableSQL = "DROP TABLE IF EXISTS `testCreatePendingInvoices`";
       await connection.query(dropTestInvoicesTableSQL);
       await connection.end();
       return;
@@ -75,7 +75,7 @@ describe("Database Info Tests", () => {
 
   //delete test tables and close db connection
   afterEach(async () => {
-    let dropTestInvoicesTableSQL = "DROP TABLE IF EXISTS `testViewPendingInvoices`";
+    let dropTestInvoicesTableSQL = "DROP TABLE IF EXISTS `testCreatePendingInvoices`";
     await connection.query(dropTestInvoicesTableSQL);
     await connection.end();
   });
