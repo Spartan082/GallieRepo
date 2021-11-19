@@ -2,11 +2,11 @@ const { createPool } = require("mysql2/promise");
 
 describe("Database Info Tests", () => {
   let connection;
+  let username = 'Test User';
 
-  //data for report
+  //data for report 1
   let requestID = 123456789;
   let email = 'testemail@gmail.com';
-  let username = 'Test User';
   let prodName = 'Test Product';
   let price = '15.55';
   let prodDesc = 'Test Description';
@@ -14,7 +14,7 @@ describe("Database Info Tests", () => {
 
   beforeEach(async () => {
     //create mock mysql tables
-    let createTestTemplateTableSQL =
+    let createTestRequestTableSQL =
       "CREATE TABLE `testViewRequest` ( `id` INT(9) ZEROFILL , `customerEmail` VARCHAR(30) , `artistUsername` VARCHAR(30) , `prodName` VARCHAR(30) , `initialPrice` DECIMAL(8,2) , `prodDesc` VARCHAR(250) , `postDate` VARCHAR(50) , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
     //connect to db
@@ -27,26 +27,28 @@ describe("Database Info Tests", () => {
     });
     console.log("Connected to database");
 
-    await connection.query(createTestTemplateTableSQL);
+    await connection.query(createTestRequestTableSQL);
   });
 
-  it("Test Querying Report from DB", async () => {
+  it("Test Querying Request from DB", async () => {
     try {
       let insertQueries = [];
     
-      //populate testViewRequest table with test data
-      let insertSQL = `INSERT INTO testViewRequest (id,  customerEmail, artistUsername, prodName, initialPrice, prodDesc, postDate) VALUES (${requestID}, '${email}', '${username}', '${prodName}', ${price}, '${prodDesc}', '${date}');`;
-      insertQueries.push(connection.query(insertSQL));
+      //populate testViewRequest table with report 1
+      let insertSQL1 = `INSERT INTO testViewRequest (id,  customerEmail, artistUsername, prodName, initialPrice, prodDesc, postDate) VALUES (${requestID}, '${email}', '${username}', '${prodName}', ${price}, '${prodDesc}', '${date}');`;
+      insertQueries.push(connection.query(insertSQL1));
 
       await Promise.all(insertQueries);
     
       //query the test tables on the db
-      const [rows, fields] = await connection.query("SELECT * FROM testViewRequest");
+      const [rows, fields] = await connection.query("SELECT * FROM testViewRequest WHERE id = '" + requestID + "' AND customerEmail = '" + email + "' AND artistUsername = '" + username 
+        + "' AND prodName = '" + prodName + "' AND initialPrice = '" + price + "' AND prodDesc = '" + prodDesc + "' AND postDate = '" + date + "'");
     
-      //CHECK THAT LENGTH OF RESPONSE MATCHES (should be 1)
+      //CHECK THAT LENGTH OF RESPONSE MATCHES (should be 2)
       expect(rows.length).toBe(1);
-      console.log(rows);
+
       //CHECK THE VALUES OF DATA RETURNED
+      //report 2 first - descending date order
       expect(rows[0].id).toBe(requestID);
       expect(rows[0].customerEmail).toBe(email);
       expect(rows[0].artistUsername).toBe(username);
@@ -60,8 +62,8 @@ describe("Database Info Tests", () => {
       console.log(error);
 
       //delete test tables and close db connection
-      let dropTestTemplateTableSQL = "DROP TABLE IF EXISTS `testViewRequest`";
-      await connection.query(dropTestTemplateTableSQL);
+      let dropTestRequestTableSQL = "DROP TABLE IF EXISTS `testViewRequest`";
+      await connection.query(dropTestRequestTableSQL);
       await connection.end();
       return;
     }
@@ -69,8 +71,8 @@ describe("Database Info Tests", () => {
 
   //delete test tables and close db connection
   afterEach(async () => {
-    let dropTestTemplateTableSQL = "DROP TABLE IF EXISTS `testViewRequest`";
-    await connection.query(dropTestTemplateTableSQL);
+    let dropTestRequestTableSQL = "DROP TABLE IF EXISTS `testViewRequest`";
+    await connection.query(dropTestRequestTableSQL);
     await connection.end();
   });
 });

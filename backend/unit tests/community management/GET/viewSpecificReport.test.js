@@ -13,8 +13,8 @@ describe("Database Info Tests", () => {
 
   beforeEach(async () => {
     //create mock mysql tables
-    let createTestTemplateTableSQL =
-      "CREATE TABLE `testViewReport` ( `id` INT(9) ZEROFILL , `reportType` VARCHAR(30) , `reportDetails` VARCHAR(60) , `reportDesc` VARCHAR(250) , `reportStatus` VARCHAR(30) , `profileID` INT(9) ZEROFILL NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+    let createTestReportTableSQL =
+      "CREATE TABLE `testViewSpecificReport` ( `id` INT(9) ZEROFILL , `reportType` VARCHAR(30) , `reportDetails` VARCHAR(60) , `reportDesc` VARCHAR(250) , `reportStatus` VARCHAR(30) , `profileID` INT(9) ZEROFILL NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
     //connect to db
     connection = await createPool({
@@ -26,21 +26,21 @@ describe("Database Info Tests", () => {
     });
     console.log("Connected to database");
 
-    await connection.query(createTestTemplateTableSQL);
+    await connection.query(createTestReportTableSQL);
   });
 
-  it("Test Querying Report from DB", async () => {
+  it("Test Querying Specific Report from DB", async () => {
     try {
       let insertQueries = [];
     
-      //populate testViewReport table with test data
-      let insertSQL = `INSERT INTO testViewReport (id,  reportType, reportDetails, reportDesc, reportStatus, profileID) VALUES (${reportId}, '${reportType}', '${reportDetails}', '${reportDesc}', '${reportStatus}', ${profileID});`;
+      //populate testViewSpecificReport table with test data
+      let insertSQL = `INSERT INTO testViewSpecificReport (id,  reportType, reportDetails, reportDesc, reportStatus, profileID) VALUES (${reportId}, '${reportType}', '${reportDetails}', '${reportDesc}', '${reportStatus}', ${profileID});`;
       insertQueries.push(connection.query(insertSQL));
 
       await Promise.all(insertQueries);
     
       //query the test tables on the db
-      const [rows, fields] = await connection.query("SELECT * FROM testViewReport");
+      const [rows, fields] = await connection.query("SELECT * FROM testViewSpecificReport WHERE id = '" + reportId + "'");
     
       //CHECK THAT LENGTH OF RESPONSE MATCHES (should be 1)
       expect(rows.length).toBe(1);
@@ -58,8 +58,8 @@ describe("Database Info Tests", () => {
       console.log(error);
 
       //delete test tables and close db connection
-      let dropTestTemplateTableSQL = "DROP TABLE IF EXISTS `testViewReport`";
-      await connection.query(dropTestTemplateTableSQL);
+      let dropTestReportTableSQL = "DROP TABLE IF EXISTS `testViewSpecificReport`";
+      await connection.query(dropTestReportTableSQL);
       await connection.end();
       return;
     }
@@ -67,8 +67,8 @@ describe("Database Info Tests", () => {
 
   //delete test tables and close db connection
   afterEach(async () => {
-    let dropTestTemplateTableSQL = "DROP TABLE IF EXISTS `testViewReport`";
-    await connection.query(dropTestTemplateTableSQL);
+    let dropTestReportTableSQL = "DROP TABLE IF EXISTS `testViewSpecificReport`";
+    await connection.query(dropTestReportTableSQL);
     await connection.end();
   });
 });

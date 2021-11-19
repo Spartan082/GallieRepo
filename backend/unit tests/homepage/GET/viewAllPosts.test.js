@@ -22,7 +22,7 @@ describe("Database Tests", () => {
   beforeEach(async () => {
     //create mock mysql tables
     let createTestPostsTableSQL =
-      "CREATE TABLE `testPost` ( `id` INT(9) ZEROFILL NOT NULL AUTO_INCREMENT, `artworkName` VARCHAR(30) NOT NULL , `prodDesc` VARCHAR(50) , `postDate` VARCHAR(50) NOT NULL , `artworkURL` VARCHAR(50) NOT NULL , PRIMARY KEY (`id`, `artworkName`)) ENGINE = InnoDB;";
+      "CREATE TABLE `testAllPosts` ( `id` INT(9) ZEROFILL NOT NULL AUTO_INCREMENT, `artworkName` VARCHAR(30) NOT NULL , `prodDesc` VARCHAR(50) , `postDate` VARCHAR(50) NOT NULL , `artworkURL` VARCHAR(50) NOT NULL , PRIMARY KEY (`id`, `artworkName`)) ENGINE = InnoDB;";
 
     let createTestProfileTableSQL =
       "CREATE TABLE `testProfile` ( `id` INT(9) ZEROFILL PRIMARY KEY AUTO_INCREMENT, `email` VARCHAR(30) UNIQUE NOT NULL , `username` VARCHAR(30) UNIQUE NOT NULL , `password` VARCHAR(30) NOT NULL , `status` VARCHAR(30) NOT NULL , `strikes` INT(1) NOT NULL , `settings` VARCHAR(30) NOT NULL) ENGINE = InnoDB;";
@@ -41,7 +41,7 @@ describe("Database Tests", () => {
     await connection.query(createTestProfileTableSQL);
   });
 
-  it("Test Querying Posts from DB", async () => {
+  it("Test Querying All Posts from DB", async () => {
     try {
       let insertQueries = [];
 
@@ -50,14 +50,14 @@ describe("Database Tests", () => {
       insertQueries.push(connection.query(insertProfileSQL));
 
       //populate testPost table with test data
-      let insertPostSQL = `INSERT INTO testPost (id, artworkName, prodDesc, postDate, artworkURL) VALUES (${id}, '${artworkName}', '${description}', '${date}', '${artworkURL}');`;
+      let insertPostSQL = `INSERT INTO testAllPosts (id, artworkName, prodDesc, postDate, artworkURL) VALUES (${id}, '${artworkName}', '${description}', '${date}', '${artworkURL}');`;
       insertQueries.push(connection.query(insertPostSQL));
 
       await Promise.all(insertQueries);
 
       //query the test tables on the db
-      const [rows, fields] = await connection.query("SELECT * FROM testPost,testProfile WHERE testPost.id = testProfile.id " 
-      + "ORDER BY testPost.postDate DESC");
+      const [rows, fields] = await connection.query("SELECT * FROM testAllPosts,testProfile WHERE testAllPosts.id = testProfile.id " 
+      + "ORDER BY testAllPosts.postDate DESC");
 
       //CHECK THAT LENGTH OF RESPONSE MATCHES NUMBER OF DB ENTRIES (should be 1)
       //console.log(rows);
@@ -81,7 +81,7 @@ describe("Database Tests", () => {
       console.log(error);
 
       //delete test tables and close db connection
-      let dropTestPostsTableSQL = "DROP TABLE IF EXISTS `testPost`";
+      let droptestAllPostssTableSQL = "DROP TABLE IF EXISTS `testAllPosts`";
       let dropTestProfileTableSQL = "DROP TABLE IF EXISTS `testProfile`";
       await connection.query(dropTestPostsTableSQL);
       await connection.query(dropTestProfileTableSQL);
@@ -92,7 +92,7 @@ describe("Database Tests", () => {
 
   //delete test tables and close db connection
   afterEach(async () => {
-    let dropTestPostsTableSQL = "DROP TABLE IF EXISTS `testPost`";
+    let dropTestPostsTableSQL = "DROP TABLE IF EXISTS `testAllPosts`";
     let dropTestProfileTableSQL = "DROP TABLE IF EXISTS `testProfile`";
     await connection.query(dropTestPostsTableSQL);
     await connection.query(dropTestProfileTableSQL);
