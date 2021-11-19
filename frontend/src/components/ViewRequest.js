@@ -13,7 +13,7 @@ function ViewRequest() {
       params: { artistUsername: username, }
       })
       .then((res) => {
-          if (res.data.length === 0) {
+          if (res.data === null) {
             setMessage('No Requests')
           }
           setRequest(res.data);
@@ -22,9 +22,9 @@ function ViewRequest() {
 
   const getInitialAllRequests = () => {
     axios
-      .get(process.env.REACT_APP_IP_ADDRESS + '/ViewAllRequest')
+      .get(process.env.REACT_APP_IP_ADDRESS + '/ViewAllRequests')
       .then((res) => {
-          if (res.data.length === 0) {
+          if (res.data === null) {
             setMessage('No Requests')
           }
           setRequest(res.data);

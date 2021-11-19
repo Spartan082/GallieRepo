@@ -233,18 +233,18 @@ app.get("/ViewPendingInvoice", (req, res) => {
 
 /* Post Queries */
 /* ------------------------------------------------------------------------------------------------------------------------------ */
-app.get("/posts", (req, res) => {
+  app.get("/posts", (req, res) => {
     const sqlSelect = "SELECT * FROM Post,Profile WHERE Post.profileID = Profile.profileID " 
         + "ORDER BY Post.postDate DESC";
     db.query(sqlSelect, (err, result) => {
-        //console.log(result);
+        console.log(result);
         if (err) {
             console.log(err);
           } else {
             res.send(result);
           }
     });
-});
+  });
 
 app.get("/postByName", (req, res) => {
   const sqlSelect = "SELECT * FROM Post WHERE artworkName = '" + req.query.artworkName + "'";
