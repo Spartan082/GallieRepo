@@ -1,7 +1,7 @@
 const { createPool } = require("mysql2/promise");
 
 describe("Database Info Tests", () => {
-  let connection;
+  let connection; 
   
   //data for report 1
   let id = 123456789;
