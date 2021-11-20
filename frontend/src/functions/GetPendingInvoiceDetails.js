@@ -1,8 +1,9 @@
 import ConvertTimestamp from "../functions/ConvertTimestamp";
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-function GetPendingInvoiceDetails({details}) {  
+function GetPendingInvoiceDetails({details}) { 
+  const history = useHistory(); 
     return (<div className = "form">
         { details.map(val => {
           const ChangeStatus = () => {
@@ -22,6 +23,7 @@ function GetPendingInvoiceDetails({details}) {
                           .catch(error => {
                             console.log(error);
                           });
+                          history.push("/Pending Invoice");
                         }
                     if(res.data[0].paymentStatus==='Submitted'){
                       axios.put(process.env.REACT_APP_IP_ADDRESS + '/ChangeStatus', {
@@ -34,6 +36,7 @@ function GetPendingInvoiceDetails({details}) {
                         .catch(error => {
                           console.log(error);
                         });
+                        history.push("/Pending Invoice");
                       }
                     }).catch((error) => {
                         console.log(error);
@@ -61,7 +64,7 @@ function GetPendingInvoiceDetails({details}) {
               
               <ul id="buttons">
                     <Link className='goBack' to="/Pending Invoice"><button>Go Back</button></Link>
-                    <Link className="resolve" to="/Pending Invoice"><button onClick={ChangeStatus}>Submit</button></Link>
+                    <button style={{ marginRight: 3 + "%"}} className="resolve" onClick={ChangeStatus}>Submit</button>
                 </ul>
             </ul>   
         )})}

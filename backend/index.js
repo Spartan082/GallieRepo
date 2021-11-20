@@ -33,7 +33,7 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     // cookie expires in 24 hours after made
-    expires: 60 * 60 * 24,
+    expires: 1 * 3600 * 1000,
   },
 }))
 
@@ -230,6 +230,17 @@ app.get("/ViewPendingInvoice", (req, res) => {
   });
 });
 
+app.get("/GetNumStrikes", (req, res) => {
+  const sqlSelect = "SELECT strikes FROM Profile WHERE profileID = '" + req.query.profileID +"';";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
 /* Post Queries */
 /* ------------------------------------------------------------------------------------------------------------------------------ */
 app.get("/posts", (req, res) => {
@@ -299,6 +310,35 @@ app.delete('/deleteArt', (req, res) => {
           throw err;
       } else {
           console.log("Post data was successfully deleted."); 
+          res.send(result);
+      }
+  });
+});
+
+app.delete('/RemoveRequest', (req, res) => {
+  // delete post data from post table
+  var sql = "DELETE FROM Request WHERE " 
+    + "requestID = '" + req.body.requestID + "'";
+  db.query(sql, (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log("Request data was successfully deleted."); 
+          res.send(result);
+      }
+  });
+});
+
+app.delete('/RemoveProfile', (req, res) => {
+  // delete post data from post table
+  console.log(req.body.profileID);
+  var sql = "DELETE FROM Profile WHERE profileID = '" + req.body.profileID + "'";
+  db.query(sql, (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log(sql);
+          console.log("Profile data was successfully deleted."); 
           res.send(result);
       }
   });
@@ -429,6 +469,18 @@ app.get("/profileByUsername", (req, res) => {
   });
 });
 
+app.get("/GetProfilePosts", (req, res) => {
+  const sqlSelect = "SELECT * FROM Post WHERE ProfileID = '" + req.query.profileID + "'";
+  db.query(sqlSelect, (err, result) => {
+      //console.log(result);
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
 //register account
 // --------------------------------------------------------------------
 app.post("/register", (req, res) => {
@@ -539,6 +591,19 @@ app.post("/login", (req, res) => {
 
 app.put('/ChangeStatus', (req, res) => {
   var sql = "UPDATE Invoice SET paymentStatus = '" + req.body.Status + "' WHERE invoiceID = '" + req.body.invoiceID + "'";
+  console.log(sql);
+  db.query(sql, (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log("Put data was successfully updated."); 
+          res.send(result);
+      }
+  });
+});
+
+app.put('/ChangeStrikes', (req, res) => {
+  var sql = "UPDATE Profile SET strikes = '" + req.body.strikes + "' WHERE profileID = '" + req.body.profileID + "'";
   console.log(sql);
   db.query(sql, (err, result) => { 
       if (err) {

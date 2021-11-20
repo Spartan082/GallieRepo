@@ -19,7 +19,7 @@ import Invoice from "./CreateInvoice";
 import VInvoice from "./ViewInvoice";
 import Report from "./CreateReport";
 import VReport from "./ViewReport";
-import Strike from "./PlaceStrike";
+import Strike from "./ViewStrike";
 import Remove from "./RemoveProfile";
 import PInvoice from "./PendingInvoice";
 import ForgotPassword from "./ForgotPassword";
@@ -63,7 +63,7 @@ function App() {
               <Route path="/View Invoice" component={VInvoice}/>
               <Route path="/Create Report" component={Report}/>
               <Route path="/View Report" component={VReport}/>
-              <Route path="/Place Strike" component={Strike}/>
+              <Route path="/view Strike" component={Strike}/>
               <Route path="/Remove Profile" component={Remove}/>
               <Route path="/Pending Invoice" component={PInvoice}/>
               <PublicRoute path="/forgot-password" component={ForgotPassword}/>

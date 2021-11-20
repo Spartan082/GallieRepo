@@ -1,10 +1,20 @@
 import ConvertTimestamp from "../functions/ConvertTimestamp";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import axios from 'axios';
 
-function GetRequestDetails({details}) {  
-
+function GetRequestDetails({details}) { 
+    const history = useHistory();
     return (<div className = "form">
         { details.map(val => {
+          const remove = () => {
+            axios.delete(process.env.REACT_APP_IP_ADDRESS + '/RemoveRequest', 
+              { data : {  requestID: val.requestID, }})
+            .then((res) => { console.log(res.data);
+            }).catch((error) => { console.log(error); });
+          
+            history.push("/View Request");
+          }
+
           return (
             <ul id= "double">
               <li><strong>Request ID:</strong></li>
@@ -21,7 +31,8 @@ function GetRequestDetails({details}) {
               <li>{ConvertTimestamp(val.postDate)}</li>
               <ul id="buttons">
                     <Link className='goBack' to="/View Request"><button>Go Back</button></Link>
-              </ul>
+                    <button style={{ marginRight: 3 + "%"}} className="resolve" onClick={remove}>Remove</button>
+                </ul>
             </ul>   
         )})}
       </div>

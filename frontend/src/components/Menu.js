@@ -92,7 +92,7 @@ function Menu() {
                         <div class="dropdown-content">
                             <Link to="/Create Report"><span className="#">Create Report</span></Link>
                             <Link to="/View Report"><span className="#">View Report</span></Link>
-                            <Link to="/Place Strike"><span className="#">Place Strike</span></Link>
+                            <Link to="/View Strike"><span className="#">View Strike</span></Link>
                             <Link to="/Remove Profile"><span className="#">Remove Profile</span></Link>
                             <Link to="/Pending Invoice"><span className="#">Pending Invoice</span></Link>
                         </div>

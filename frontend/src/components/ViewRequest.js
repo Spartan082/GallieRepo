@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import GetRequest from '../functions/GetRequest';
-import GetRequestDetails from '../functions/GetRequestDetails';
 
 function ViewRequest() {
   const [request, setRequest] = useState([])
