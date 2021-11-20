@@ -32,8 +32,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    // cookie expires in 24 hours after made
-    expires: 1 * 3600 * 1000,
+    // cookie expires in 1 hour after made
+    expires: 1 * 3600 * 1000, 
+    //60 * 60 * 24,
   },
 }))
 
@@ -243,18 +244,18 @@ app.get("/GetNumStrikes", (req, res) => {
 
 /* Post Queries */
 /* ------------------------------------------------------------------------------------------------------------------------------ */
-app.get("/posts", (req, res) => {
+  app.get("/posts", (req, res) => {
     const sqlSelect = "SELECT * FROM Post,Profile WHERE Post.profileID = Profile.profileID " 
         + "ORDER BY Post.postDate DESC";
     db.query(sqlSelect, (err, result) => {
-        //console.log(result);
+        console.log(result);
         if (err) {
             console.log(err);
           } else {
             res.send(result);
           }
     });
-});
+  });
 
 app.get("/postByName", (req, res) => {
   const sqlSelect = "SELECT * FROM Post WHERE artworkName = '" + req.query.artworkName + "'";
