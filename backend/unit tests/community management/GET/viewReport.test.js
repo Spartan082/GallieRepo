@@ -3,18 +3,22 @@ const { createPool } = require("mysql2/promise");
 describe("Database Info Tests", () => {
   let connection;
 
+  //get the current date
+  var curdate = new Date();
+
   //data for report
   let reportId = 123456789;
   let reportType = 'Test Type';
   let reportDetails = 'Test Report Details';
   let reportDesc = 'Test Report Description';
   let reportStatus = 'Test Report Status';
+  let date = curdate;
   let profileID = 987654321;
 
   beforeEach(async () => {
     //create mock mysql tables
     let createTestReportTableSQL =
-      "CREATE TABLE `testViewReport` ( `id` INT(9) ZEROFILL , `reportType` VARCHAR(30) , `reportDetails` VARCHAR(60) , `reportDesc` VARCHAR(250) , `reportStatus` VARCHAR(30) , `profileID` INT(9) ZEROFILL NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+      "CREATE TABLE `testViewReport` ( `id` INT(9) ZEROFILL , `reportType` VARCHAR(30) , `reportDetails` VARCHAR(60) , `reportDesc` VARCHAR(250) , `reportStatus` VARCHAR(30) , postDate TIMESTAMP , `profileID` INT(9) ZEROFILL NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
     //connect to db
     connection = await createPool({
@@ -34,7 +38,7 @@ describe("Database Info Tests", () => {
       let insertQueries = [];
     
       //populate testViewReport table with test data
-      let insertSQL = `INSERT INTO testViewReport (id,  reportType, reportDetails, reportDesc, reportStatus, profileID) VALUES (${reportId}, '${reportType}', '${reportDetails}', '${reportDesc}', '${reportStatus}', ${profileID});`;
+      let insertSQL = `INSERT INTO testViewReport (id,  reportType, reportDetails, reportDesc, reportStatus, postDate, profileID) VALUES (${reportId}, '${reportType}', '${reportDetails}', '${reportDesc}', '${reportStatus}', ${date}, ${profileID});`;
       insertQueries.push(connection.query(insertSQL));
 
       await Promise.all(insertQueries);
@@ -51,6 +55,7 @@ describe("Database Info Tests", () => {
       expect(rows[0].reportDetails).toBe(reportDetails);
       expect(rows[0].reportDesc).toBe(reportDesc);
       expect(rows[0].reportStatus).toBe(reportStatus);
+      expect(rows[0].postDate).toBe(date);
       expect(rows[0].profileID).toBe(profileID);
 
     } catch (error) {

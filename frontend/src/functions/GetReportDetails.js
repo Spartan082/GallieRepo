@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Link, useHistory } from "react-router-dom";
 import addStrike from "../functions/addStrike";
 import removeStrike from "../functions/removeStrike";
+import ConvertTimestamp from './ConvertTimestamp';
 
 function GetReportDetails({details}) {
     const history = useHistory();
@@ -55,6 +56,8 @@ function GetReportDetails({details}) {
                 <li>{val.reportDesc}</li>
                 <li><strong>Report Status:</strong></li>
                 <li>{val.reportStatus}</li>
+                <li><strong>Date:</strong></li>
+                <li>{ConvertTimestamp(val.postDate)}</li>
                 <li><strong>Profile ID:</strong></li>
                 <li>{val.profileID}</li>
                 <ul id="buttons">

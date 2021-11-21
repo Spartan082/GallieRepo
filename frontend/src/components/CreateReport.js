@@ -35,6 +35,9 @@ function CreateReport() {
       setReportDetails(spamReportType);
     }
   }
+
+  //get the current date
+  var date = new Date();
   
   const submitReport  = (profileID) => {
     const requestBody = {
@@ -43,6 +46,7 @@ function CreateReport() {
       reportDetails: reportDetails,
       reportDesc: description,
       reportStatus: 'Pending',
+      date: date,
       profileId: profileID
     }
 

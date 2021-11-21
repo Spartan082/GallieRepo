@@ -20,11 +20,11 @@ function GetRequest({account}) {
             return (
               <tr>
                 <Route path="/ViewAccountStrikeDetails/:id" component={ViewAccountStrikeDetails} />
-                <td><strong>{val.requestID}</strong></td>
-                <td><strong>{val.customerEmail}</strong></td>
-                <td><strong>{val.prodName}</strong></td>
-                <td><strong>{val.postDate}</strong></td>
-                <td><Link to={"/ViewAccountStrikedDetails/" + val.requestID}>Review</Link></td>
+                <td><strong>{val.profileID}</strong></td>
+                <td><strong>{val.username}</strong></td>
+                <td><strong>{val.email}</strong></td>
+                <td><strong>{val.strikes}</strong></td>
+                <td><Link to={"/ViewAccountStrikeDetails/" + val.profileID}>Review</Link></td>
               </tr>
         )})}
         </table>

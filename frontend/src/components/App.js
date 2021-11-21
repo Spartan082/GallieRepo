@@ -30,6 +30,7 @@ import ViewRequestDetails from './ViewRequestDetails';
 import ViewInvoiceDetails from './ViewInvoiceDetails';
 import ViewPendingDetails from './ViewPendingDetails';
 import ViewReportDetails from './ViewReportDetails';
+import ViewAccountStrikeDetails from './ViewAccountStrikeDetails';
 //import { getUser, getToken, setUserSession, resetUserSession } from "./service/AuthService";
 //import axios from "axios";
 
@@ -63,7 +64,7 @@ function App() {
               <Route path="/View Invoice" component={VInvoice}/>
               <Route path="/Create Report" component={Report}/>
               <Route path="/View Report" component={VReport}/>
-              <Route path="/view Strike" component={Strike}/>
+              <Route path="/View Strike" component={Strike}/>
               <Route path="/Remove Profile" component={Remove}/>
               <Route path="/Pending Invoice" component={PInvoice}/>
               <PublicRoute path="/forgot-password" component={ForgotPassword}/>
@@ -71,6 +72,7 @@ function App() {
               <Route path="/ViewRequestDetails/:id" component={ViewRequestDetails} />
               <Route path="/ViewInvoiceDetails/:id" component={ViewInvoiceDetails} />
               <Route path="/ViewPendingDetails/:id" component={ViewPendingDetails} />
+              <Route path="/ViewAccountStrikeDetails/:id" component={ViewAccountStrikeDetails} />
             </Switch>
           </div>
         </main>

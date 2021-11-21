@@ -5,6 +5,7 @@ import {
   Link
 } from "react-router-dom";
 import ViewReportDetails from "../components/ViewReportDetails";
+import ConvertTimestamp from "../functions/ConvertTimestamp";
 
 function GetReport({reports}) {  
     console.log(reports);
@@ -15,6 +16,7 @@ function GetReport({reports}) {
             <th>Report ID</th>
             <th>Report Type</th>
             <th>Report Status</th>
+            <th>Date</th>
             <th>Profile ID</th>
             <th>Review</th>
           </tr>
@@ -25,6 +27,7 @@ function GetReport({reports}) {
                 <td><strong>{val.reportID}</strong></td>
                 <td><strong>{val.reportType}</strong></td>
                 <td><strong>{val.reportStatus}</strong></td>
+                <td><strong>{ConvertTimestamp(val.postDate)}</strong></td>
                 <td><strong>{val.profileID}</strong></td>
                 <td><Link to={"/ViewReportDetails/" + val.reportID}>Review</Link></td>
               </tr>

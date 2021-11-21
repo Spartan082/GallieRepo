@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import GetRequest from '../functions/GetRequest';
+import GetRequestDetails from '../functions/GetRequestDetails';
 
 function ViewRequest() {
   const [request, setRequest] = useState([])
@@ -13,7 +14,7 @@ function ViewRequest() {
       })
       .then((res) => {
           if (res.data === null) {
-            setMessage('No Requests')
+            setMessage('No Requests');
           }
           setRequest(res.data);
       })
@@ -24,7 +25,7 @@ function ViewRequest() {
       .get(process.env.REACT_APP_IP_ADDRESS + '/ViewAllRequests')
       .then((res) => {
           if (res.data === null) {
-            setMessage('No Requests')
+            setMessage('No Requests');
           }
           setRequest(res.data);
       })

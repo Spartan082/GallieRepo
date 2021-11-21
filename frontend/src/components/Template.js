@@ -30,7 +30,7 @@ function Info() {
 
     useEffect(() => {
         axios
-            .get(process.env.REACT_APP_IP_ADDRESS + '/info/icon')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/template/icon')
             .then(response => {
                 setIcon(response.data)
             })
@@ -38,7 +38,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get(process.env.REACT_APP_IP_ADDRESS + '/info/sketch')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/template/sketch')
             .then(response => {
                 setSketch(response.data)
             })
@@ -46,7 +46,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get(process.env.REACT_APP_IP_ADDRESS + '/info/lineart')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/template/lineart')
             .then(response => {
                 setLineArt(response.data)
             })
@@ -54,7 +54,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get(process.env.REACT_APP_IP_ADDRESS + '/info/flatcolor')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/template/flatcolor')
             .then(response => {
                 setFlatColor(response.data)
             })
@@ -62,7 +62,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get(process.env.REACT_APP_IP_ADDRESS + '/info/shaded')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/template/shaded')
             .then(response => {
                 setShaded(response.data)
             })
@@ -70,7 +70,7 @@ function Info() {
 
     useEffect(() => {
       axios
-          .get(process.env.REACT_APP_IP_ADDRESS + '/info/logo')
+          .get(process.env.REACT_APP_IP_ADDRESS + '/template/logo')
           .then(response => {
               setLogo(response.data)
           })

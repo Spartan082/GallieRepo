@@ -49,9 +49,9 @@ const db = mysql.createConnection({
     timezone: 'UTC'
 });
 
-/* Info Queries */
+/* Template Queries */
 /* ------------------------------------------------------------------------------------------------------------------------------ */
-app.get("/info/icon", (req, res) => {
+app.get("/template/icon", (req, res) => {
   const sqlSelect = "SELECT * FROM Template WHERE artType = 'Icon' ORDER BY postDate DESC LIMIT 1;";
   db.query(sqlSelect, (err, result) => {
       //console.log(result);
@@ -62,7 +62,7 @@ app.get("/info/icon", (req, res) => {
         }
   });
 });
-app.get("/info/sketch", (req, res) => {
+app.get("/template/sketch", (req, res) => {
   const sqlSelect = "SELECT * FROM Template WHERE artType = 'Sketch' ORDER BY postDate DESC LIMIT 1;";
   db.query(sqlSelect, (err, result) => {
       //console.log(result);
@@ -74,7 +74,7 @@ app.get("/info/sketch", (req, res) => {
   });
 });
 
-app.get("/info/flatcolor", (req, res) => {
+app.get("/template/flatcolor", (req, res) => {
   const sqlSelect = "SELECT * FROM Template WHERE artType = 'Flat Color' ORDER BY postDate DESC LIMIT 1;";
   db.query(sqlSelect, (err, result) => {
       //console.log(result);
@@ -85,7 +85,7 @@ app.get("/info/flatcolor", (req, res) => {
         }
   });
 });
-app.get("/info/lineart", (req, res) => {
+app.get("/template/lineart", (req, res) => {
   const sqlSelect = "SELECT * FROM Template WHERE artType = 'Lineart' ORDER BY postDate DESC LIMIT 1;";
   db.query(sqlSelect, (err, result) => {
       //console.log(result);
@@ -95,8 +95,9 @@ app.get("/info/lineart", (req, res) => {
           res.send(result);
         }
   });
+
 });
-app.get("/info/shaded", (req, res) => {
+app.get("/template/shaded", (req, res) => {
   const sqlSelect = "SELECT * FROM Template WHERE artType = 'Shaded' ORDER BY postDate DESC LIMIT 1;";
   db.query(sqlSelect, (err, result) => {
       //console.log(result);
@@ -107,7 +108,7 @@ app.get("/info/shaded", (req, res) => {
         }
   });
 });
-app.get("/info/logo", (req, res) => {
+app.get("/template/logo", (req, res) => {
   const sqlSelect = "SELECT * FROM Template WHERE artType = 'Logo' ORDER BY postDate DESC LIMIT 1;";
   db.query(sqlSelect, (err, result) => {
       //console.log(result);
@@ -120,7 +121,18 @@ app.get("/info/logo", (req, res) => {
 });
 
 app.get("/ViewReport", (req, res) => {
-  const sqlSelect = "SELECT * FROM ReportType";
+  const sqlSelect = "SELECT * FROM ReportType ORDER BY postDate DESC";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
+app.get("/ViewStrikedReports", (req, res) => {
+  const sqlSelect = "SELECT * FROM ReportType WHERE profileID = '" + req.query.profileID + "' and reportStatus = 'Striked' ORDER BY postDate DESC";
   db.query(sqlSelect, (err, result) => {
       if (err) {
           console.log(err);
@@ -152,6 +164,17 @@ app.get("/ViewRequest", (req, res) => {
   });
 });
 
+app.get("/ViewAllStrikedAccounts", (req, res) => {
+  const sqlSelect = "SELECT * FROM Profile WHERE strikes >= 1";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
 app.get("/ViewAllInvoices", (req, res) => {
   const sqlSelect = "SELECT * FROM Invoice ORDER BY postDate DESC";
   db.query(sqlSelect, (err, result) => {
@@ -165,18 +188,6 @@ app.get("/ViewAllInvoices", (req, res) => {
 
 app.get("/ViewInvoice", (req, res) => {
   const sqlSelect = "SELECT * FROM Invoice WHERE artistEmail = '" + req.query.email + "' ORDER BY postDate DESC";
-  db.query(sqlSelect, (err, result) => {
-      if (err) {
-          console.log(err);
-        } else {
-          res.send(result);
-        }
-  });
-});
-
-app.get("/CheckVariable", (req, res) => {
-  const sqlSelect = "SELECT COUNT(1) FROM " + req.query.variableTable + "  WHERE " + req.query.variableName + " = '" + req.query.variable + "'";
-  console.log(sqlSelect);
   db.query(sqlSelect, (err, result) => {
       if (err) {
           console.log(err);
@@ -231,8 +242,78 @@ app.get("/ViewPendingInvoice", (req, res) => {
   });
 });
 
+app.get("/ViewArtistRates", (req, res) => {
+  const sqlSelect = "SELECT * FROM Artist WHERE profileID = '" + req.query.profileID + "';";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          console.log(sqlSelect);
+          res.send(result);
+        }
+  });
+});
+
+/* Profile Queries */
+/* ------------------------------------------------------------------------------------------------------------------------------ */
+app.get("/profileByUsername", (req, res) => {
+  const sqlSelect = "SELECT * FROM Profile WHERE username = '" + req.query.username + "'";
+  db.query(sqlSelect, (err, result) => {
+      //console.log(result);
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
+app.get("/GetProfilePosts", (req, res) => {
+  const sqlSelect = "SELECT * FROM Post WHERE ProfileID = '" + req.query.profileID + "'";
+  db.query(sqlSelect, (err, result) => {
+      //console.log(result);
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
+//login
+//-------------------------------------------------------------------------------------------------------------
+app.get('/login',(req, res) => {
+  if (req.session.user){
+    res.send({loggedIn: true, user: req.session.user});
+  } else{
+    res.send({loggedIn: false, user: req.session.user});
+  }
+});
+
+//logout
+//-------------------------------------------------------------------------------------------------------------
+app.get('/logout',(req, res) => {
+  if (req.session.user){
+   res.send({loggedIn: false});
+  } else{
+    res.send({loggedIn: true, user: req.session.user});
+    }
+  });
+
 app.get("/GetNumStrikes", (req, res) => {
   const sqlSelect = "SELECT strikes FROM Profile WHERE profileID = '" + req.query.profileID +"';";
+  db.query(sqlSelect, (err, result) => {
+      if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+  });
+});
+
+app.get("/CheckVariable", (req, res) => {
+  const sqlSelect = "SELECT COUNT(1) FROM " + req.query.variableTable + "  WHERE " + req.query.variableName + " = '" + req.query.variable + "'";
+  console.log(sqlSelect);
   db.query(sqlSelect, (err, result) => {
       if (err) {
           console.log(err);
@@ -281,6 +362,14 @@ app.get("/CheckStatus", (req, res) => {
   });
 });
 
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+});
+
 app.post('/uploadArt', (req, res) => {
     // store all the post input data
     const id = req.body.profileID;
@@ -301,50 +390,6 @@ app.post('/uploadArt', (req, res) => {
     });
 });
 
-app.delete('/deleteArt', (req, res) => {
-  // delete post data from post table
-  var sql = "DELETE FROM Post WHERE " 
-    + "profileId = " + req.body.profileID
-    + " AND artworkName = '" + req.body.artworkName + "'";
-  db.query(sql, (err, result) => { 
-      if (err) {
-          throw err;
-      } else {
-          console.log("Post data was successfully deleted."); 
-          res.send(result);
-      }
-  });
-});
-
-app.delete('/RemoveRequest', (req, res) => {
-  // delete post data from post table
-  var sql = "DELETE FROM Request WHERE " 
-    + "requestID = '" + req.body.requestID + "'";
-  db.query(sql, (err, result) => { 
-      if (err) {
-          throw err;
-      } else {
-          console.log("Request data was successfully deleted."); 
-          res.send(result);
-      }
-  });
-});
-
-app.delete('/RemoveProfile', (req, res) => {
-  // delete post data from post table
-  console.log(req.body.profileID);
-  var sql = "DELETE FROM Profile WHERE profileID = '" + req.body.profileID + "'";
-  db.query(sql, (err, result) => { 
-      if (err) {
-          throw err;
-      } else {
-          console.log(sql);
-          console.log("Profile data was successfully deleted."); 
-          res.send(result);
-      }
-  });
-});
-
 /* Report Queries */
 /* ------------------------------------------------------------------------------------------------------------------------------ */
 app.post('/uploadReport', (req, res) => {
@@ -354,11 +399,12 @@ app.post('/uploadReport', (req, res) => {
   const details = req.body.reportDetails;
   const desc = req.body.reportDesc;
   const status = req.body.reportStatus;
+  const date = req.body.date;
   const profileId = req.body.profileId;
  
   // insert post data into post table
-  var sql = "INSERT INTO ReportType (reportID, reportType, reportDetails, reportDesc, reportStatus, profileID) VALUES (?, ?, ?, ?, ?, ?)";
-  db.query(sql, [id, type, details, desc, status, profileId], (err, result) => { 
+  var sql = "INSERT INTO ReportType (reportID, reportType, reportDetails, reportDesc, reportStatus, postDate, profileID) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  db.query(sql, [id, type, details, desc, status, date, profileId], (err, result) => { 
       if (err) {
           throw err;
       } else {
@@ -415,6 +461,20 @@ app.post('/CreateRequest', (req, res) => {
   });
 });
 
+app.post('/UploadNewRates', (req, res) => {
+  var sql = "INSERT INTO Artist (profileID, " + req.body.catagory + ") VALUES (?, ?)";
+  console.log(sql);
+  db.query(sql, [req.body.profileID, req.body.price], (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log(sql);
+          console.log("Post data was successfully uploaded."); 
+          res.send(result);
+      }
+  });
+});
+
 app.post('/CreateInvoice', (req, res) => {
   // store all the post input data
   const id = req.body.invoiceID;
@@ -456,31 +516,7 @@ app.post('/UpdatePendingInvoice', (req, res) => {
   });
 });
 
-/* Profile Queries */
-/* ------------------------------------------------------------------------------------------------------------------------------ */
-app.get("/profileByUsername", (req, res) => {
-  const sqlSelect = "SELECT * FROM Profile WHERE username = '" + req.query.username + "'";
-  db.query(sqlSelect, (err, result) => {
-      //console.log(result);
-      if (err) {
-          console.log(err);
-        } else {
-          res.send(result);
-        }
-  });
-});
 
-app.get("/GetProfilePosts", (req, res) => {
-  const sqlSelect = "SELECT * FROM Post WHERE ProfileID = '" + req.query.profileID + "'";
-  db.query(sqlSelect, (err, result) => {
-      //console.log(result);
-      if (err) {
-          console.log(err);
-        } else {
-          res.send(result);
-        }
-  });
-});
 
 //register account
 // --------------------------------------------------------------------
@@ -514,14 +550,6 @@ app.post("/register", (req, res) => {
 
 //login
 //-------------------------------------------------------------------------------------------------------------
-app.get('/login',(req, res) => {
-  if (req.session.user){
-    res.send({loggedIn: true, user: req.session.user});
-  } else{
-    res.send({loggedIn: false, user: req.session.user});
-  }
-});
-
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -546,8 +574,6 @@ app.post("/login", (req, res) => {
           res.send({message: "Wrong username/password combination"}) ;
         }
       });
-      
-  
     }
     else {
       res.send({message: "User does not exist"}) ;
@@ -556,17 +582,10 @@ app.post("/login", (req, res) => {
   });
   });
 
+
+
 //logout
 //-------------------------------------------------------------------------------------------------------------
-
-  app.get('/logout',(req, res) => {
-    if (req.session.user){
-     res.send({loggedIn: false});
-    } else{
-      res.send({loggedIn: true, user: req.session.user});
-    }
-  });
-
   app.post('/logout',(req,res) => {
     req.session.loggedin = false;
     req.session.destroy();
@@ -577,18 +596,18 @@ app.post("/login", (req, res) => {
     //res.redirect('/');
   });
 
-  app.put('/ChangeReportStatus', (req, res) => {
-    var sql = "UPDATE ReportType SET reportStatus = '" + req.body.Status + "' WHERE reportID = '" + req.body.reportID + "'";
-    console.log(sql);
-    db.query(sql, (err, result) => { 
-        if (err) {
-            throw err;
-        } else {
-            console.log("Put data was successfully updated."); 
-            res.send(result);
-        }
-    });
+app.put('/ChangeReportStatus', (req, res) => {
+  var sql = "UPDATE ReportType SET reportStatus = '" + req.body.Status + "' WHERE reportID = '" + req.body.reportID + "'";
+  console.log(sql);
+  db.query(sql, (err, result) => { 
+    if (err) {
+      throw err;
+    } else {
+      console.log("Put data was successfully updated."); 
+      res.send(result);
+    }
   });
+});
 
 app.put('/ChangeStatus', (req, res) => {
   var sql = "UPDATE Invoice SET paymentStatus = '" + req.body.Status + "' WHERE invoiceID = '" + req.body.invoiceID + "'";
@@ -616,13 +635,63 @@ app.put('/ChangeStrikes', (req, res) => {
   });
 });
 
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
-})
+app.put('/UpdateRates', (req, res) => {
+  var sql = "UPDATE Artist SET " + req.body.catagory + " = '" + req.body.price + "' WHERE profileID = '" + req.body.profileID + "'";
+  console.log(sql);
+  db.query(sql, (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log(sql);
+          console.log("Put data was successfully updated."); 
+          res.send(result);
+      }
+  });
+});
+
+app.delete('/deleteArt', (req, res) => {
+  // delete post data from post table
+  var sql = "DELETE FROM Post WHERE " 
+    + "profileId = " + req.body.profileID
+    + " AND artworkName = '" + req.body.artworkName + "'";
+  db.query(sql, (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log("Post data was successfully deleted."); 
+          res.send(result);
+      }
+  });
+});
+
+app.delete('/RemoveRequest', (req, res) => {
+  // delete post data from post table
+  var sql = "DELETE FROM Request WHERE " 
+    + "requestID = '" + req.body.requestID + "'";
+  db.query(sql, (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log("Request data was successfully deleted."); 
+          res.send(result);
+      }
+  });
+});
+
+app.delete('/RemoveProfile', (req, res) => {
+  // delete post data from post table
+  console.log(req.body.profileID);
+  var sql = "DELETE FROM Profile WHERE profileID = '" + req.body.profileID + "'";
+  db.query(sql, (err, result) => { 
+      if (err) {
+          throw err;
+      } else {
+          console.log(sql);
+          console.log("Profile data was successfully deleted."); 
+          res.send(result);
+      }
+  });
+});
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
