@@ -2,6 +2,7 @@ import '../styles/App.scss';
 import "../styles/homepage.scss";
 import Homepage from "./Homepage.js";
 import Menu from "./Menu.js";
+import Footer from "./Footer";
 import React from 'react';
 import Template from "./Template";
 import Profile from "./Profile";
@@ -76,6 +77,7 @@ function App() {
             </Switch>
           </div>
         </main>
+        <Footer />
       </div>
     </Router>
   );
