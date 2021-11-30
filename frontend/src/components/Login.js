@@ -1,64 +1,76 @@
 import '../styles/profile.scss';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { setUserSession } from './service/AuthService'
 import { NavLink} from "react-router-dom";
 
 
-
-const loginAPIUrl = 'https://pk3vioz5q4.execute-api.us-east-1.amazonaws.com/gallieprod3/login';
-
 const Login = (props) => {
+  axios.defaults.withCredentials = true;
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const submitHandler = (event) => {
-    event.preventDefault();
+  const[loginStatus, setLoginStatus] = useState(''); 
+
+  const submitForm = () => {
+     
     if (username.trim() === '' || password.trim() === '') {
       setErrorMessage('Both username and password are required');
       return;
     }
-    //console.log('login button pressed')
-    setErrorMessage(null);
-    const requestConfig = {
-      headers: {
-        'x-api-key': '2tjbJfuJBWrpkvAUu5ax6lwdXKiYepG6yZhm9EJg'
-      }
-    }
+    
     const requestBody = {
       username: username,
       password: password
     }
 
-    axios.post(loginAPIUrl, requestBody, requestConfig).then((response) => {
-      setUserSession(response.data.user, response.data.token);
-      props.history.push('/premium-content');
-    }).catch((error) => {
-      if (error.response.status === 401 || error.response.status === 403) {
-        setErrorMessage(error.response.data.message);
-      } else {
-        setErrorMessage('sorry....the backend server is down. please try again later!!');
+  axios.post(process.env.REACT_APP_IP_ADDRESS + '/login', requestBody)
+    .then((res) => {
+      //console.log(res.data)
+      console.log(res);
+      if(res.data.message){
+        setLoginStatus(res.data.message);
+        if(res.data.loggedIn === true) {
+          setLoginStatus(res.data.user[0].username);}
       }
-    })
-  }
+      else{
+        setLoginStatus(res.data[0].username);
+      }
+      //setErrorMessage('Login Successful');
+    }).catch((error) => {
+      //console.log(error)
+      setErrorMessage(error.message);
+    });
+
+  } 
+
+  useEffect(() => {
+    axios.get(process.env.REACT_APP_IP_ADDRESS + '/login').then((res) => {
+      //console.log(response);
+      if(res.data.loggedIn === true) {
+      setLoginStatus(res.data.user[0].username);
+  
+      }
+    });
+  }, []);
 
   return (
     <div align="center">
     <div className="profile"> 
-      <form onSubmit={submitHandler}>
+      {/* <form onSubmit={submitHandler}> */}
       <div class="form_container">
         <h1 class="form__title">Login</h1>
         <div class="form__message form__message--error"></div>
             <div class="form__input-group">
-                <input type="text"  class="form__input" autofocus placeholder="Username or email" value={username} onChange={event => setUsername(event.target.value)} /> <br/>
+                <input type="text"  class="form__input" autoFocus placeholder="Username or email" value={username} onChange={event => setUsername(event.target.value)} /> <br/>
                 <div class="form__input-error-message"></div>
             </div>
             <div class="form__input-group">
-                <input type="password" class="form__input" autofocus placeholder="Password" value={password} onChange={event => setPassword(event.target.value)} /> <br/>
+                <input type="password" class="form__input" autoFocus placeholder="Password" value={password} onChange={event => setPassword(event.target.value)} /> <br/>
                 <div class="form__input-error-message"></div>
             </div>
-            <button class="form__button" type="submit">Continue</button>
+            <button class="form__button" type="submit" onClick={submitForm}>Continue</button>
       
       {errorMessage && <p className="message">{errorMessage}</p>}
       <p class="form__text">
@@ -68,8 +80,10 @@ const Login = (props) => {
                 <NavLink class="form__link" activeClassName="active" to="/Create Account">Don't have a Profile? Create Profile</NavLink>
             </p>
             </div>
-      </form>
+      {/* </form> */}
     </div>
+
+    <h1>{loginStatus}</h1>
     </div>
     
   )

@@ -1,0 +1,159 @@
+@import 'properties';
+
+.form ul {
+    width: 100%;
+    overflow: hidden;
+    background-color: $background-white;
+    padding: 0 10px 0 10px;
+    overflow-wrap: break-word;
+  }
+.form li {
+    font-size: 1.25rem;
+    padding: 5px;
+    max-width: 600px;
+    line-height: 1.5em;
+    float: left;
+    display: inline;
+  }
+.form li strong {
+    color: $border-color-blue;
+}
+
+.form #double li {
+    width: 45%;
+  }
+.form #double li:nth-child(even) {
+    margin-left: 5px;
+  }
+
+.section h1{
+    text-align: center;
+    color: $border-color-blue;
+    font-size: 2.0rem;
+    -webkit-text-stroke-width: 0.5px;
+}
+
+.section p{
+    text-align: center;
+}
+
+.section button {
+    font-size: 2rem;
+    background-color: $background-grey;
+    color: $border-color-blue;
+    border: none;
+    -webkit-text-stroke-width: 0.5px;
+    &:hover {
+        cursor: pointer;
+    }  
+}
+
+.rates ul {
+    width: 90%;
+    overflow: hidden;
+    margin: 0 auto 0 auto;
+    padding: 0;
+    background-color: $background-color-orange;
+    overflow-wrap: break-word;
+    display: flex;
+    justify-content: center;
+  }
+.rates li {
+    width: 30%;
+    padding: 0 auto 0 auto;
+    background-color: white;
+    list-style-type: none;
+    line-height: 1.5em;
+  }
+
+.rates button {
+    font-size: 1.25rem;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    height: 100%;
+    width: 100%;
+    background-color: $background-color-orange;
+    color: $background-white;
+    border: none;
+    -webkit-text-stroke-width: 0;
+    &:hover {
+        cursor: pointer;
+    }  
+}
+
+.section #double button {
+    font-size: 2rem;
+    background-color: $background-white;
+    color: $black;
+    border: 2px solid $border-color-blue;
+    margin: none;
+    -webkit-text-stroke-width: 0.5px;
+
+    &:hover {
+        cursor: pointer;
+    }  
+}
+
+.section #buttons {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    
+
+   .goBack {
+        text-align: center;
+        display: flex;
+        width: 150px;
+   }
+
+   .resolve {
+        text-align: center;
+        display: flex;
+        width: 150px;
+   }
+
+    &:hover {
+        cursor: pointer;
+    }  
+}
+
+.form{
+    border: 3px solid $border-color-blue;
+    background-color: $background-color-orange;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    margin: 5%;
+    padding: 3% 5% 3% 5%;
+}
+
+.form table ul{
+    padding: 1rem;
+    margin: 0 auto 0 auto;
+    border: 1px solid $border-color-blue;
+    background-color: $background-white;
+}
+
+.form table li {
+    list-style-type: none;
+    font-size: 1.2rem;
+}
+
+.form table{
+    width: 100%;
+    border: 1px solid $border-color-blue;
+    background-color: $background-white;
+    text-align: center;
+}
+
+.form table th {
+    color: $border-color-blue;
+}
+
+.form table th, .form table td {
+    border: 1px solid $border-color-blue;
+    width: 10rem;
+    max-width: 200px;
+    overflow-wrap: break-word;
+}

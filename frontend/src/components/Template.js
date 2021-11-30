@@ -1,4 +1,4 @@
-import "../styles/homepage.scss";
+import "../styles/template.scss";
 import TemplateInfo from "../functions/artType";
 import UploadTemplate from "../functions/UploadTemplate";
 import React, { useState, useEffect } from 'react';
@@ -12,9 +12,25 @@ function Info() {
     const [shaded, setShaded] = useState([])
     const [logo, setLogo] = useState([])
 
+    const [showModifyButton, setShowModifyButton] = useState(false);
+
+    useEffect(() => {
+      axios.get(process.env.REACT_APP_IP_ADDRESS + '/login')
+        .then((res) => {
+          console.log(res.data)
+           //if user is logged in show the Modify button
+          if (res.data.loggedIn === true && res.data.user[0].status === 'Moderator')
+          {
+            setShowModifyButton(true);
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
+    }, []);
+
     useEffect(() => {
         axios
-            .get('http://localhost:8000/info/icon')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/template/icon')
             .then(response => {
                 setIcon(response.data)
             })
@@ -22,7 +38,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get('http://localhost:8000/info/sketch')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/template/sketch')
             .then(response => {
                 setSketch(response.data)
             })
@@ -30,7 +46,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get('http://localhost:8000/info/lineart')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/template/lineart')
             .then(response => {
                 setLineArt(response.data)
             })
@@ -38,7 +54,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get('http://localhost:8000/info/flatcolor')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/template/flatcolor')
             .then(response => {
                 setFlatColor(response.data)
             })
@@ -46,7 +62,7 @@ function Info() {
 
     useEffect(() => {
       axios
-            .get('http://localhost:8000/info/shaded')
+            .get(process.env.REACT_APP_IP_ADDRESS + '/template/shaded')
             .then(response => {
                 setShaded(response.data)
             })
@@ -54,7 +70,7 @@ function Info() {
 
     useEffect(() => {
       axios
-          .get('http://localhost:8000/info/logo')
+          .get(process.env.REACT_APP_IP_ADDRESS + '/template/logo')
           .then(response => {
               setLogo(response.data)
           })
@@ -140,13 +156,15 @@ function Info() {
         setShowLogo(!showLogo);
       }
     }
+  
 
   return (
-    <div>
+    <div className = "template">
       <h1>Creating Artist Rate Template</h1>
-      <li className="item"><button onClick={FormOnClick}>Modify</button>
-      {showForm ? <UploadTemplate /> : null}</li>
+      <div>
       <ul>
+        <li className="item">{showModifyButton ? <button onClick={FormOnClick}>Modify</button> : null}
+        {showForm ? <UploadTemplate /> : null}</li>
         <li className="item"><button onClick={IconOnClick}>Icon</button>
         {showIcon ? <TemplateInfo templateInfo = {icon} /> : null}</li>
         <li className="item"><button onClick={SketchOnClick}>Sketch</button>
@@ -160,6 +178,7 @@ function Info() {
         <li className="item"><button onClick={LogoOnClick}>Logo</button>
         {showLogo ? <TemplateInfo templateInfo = {logo} /> : null}</li>
       </ul>
+      </div>
     </div>
   );
 }

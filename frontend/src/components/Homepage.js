@@ -7,11 +7,11 @@ function Homepage() {
     const [search, setSearch] = useState('');
     const [posts, setPosts] = useState([])
 
-    const address= process.env.REACT_APP_IP_ADDRESS + '/posts';
+    console.log(process.env.REACT_APP_IP_ADDRESS + '/posts');
 
     useEffect(() => {
         axios
-            .get(address)
+            .get(process.env.REACT_APP_IP_ADDRESS + '/posts')
             .then(response => {
                 setPosts(response.data)
             })
@@ -19,6 +19,8 @@ function Homepage() {
 
     const filteredPosts = search.length === 0 ? posts : 
         posts.filter(post => post.artworkName.toLowerCase().includes(search.toLowerCase()));
+
+    console.log(filteredPosts);
 
   return (
       <div className="homepage">

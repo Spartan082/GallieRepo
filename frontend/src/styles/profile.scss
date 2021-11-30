@@ -2,12 +2,6 @@
 
 .profile {
 body {
-    //margin: 0;
-    // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    //   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    //   sans-serif;
-    //-webkit-font-smoothing: antialiased;
-    //-moz-osx-font-smoothing: grayscale;
   
     /*added from front end tutorial*/
      /*primary color of button*/
@@ -44,44 +38,8 @@ body {
         border-radius: var(--border-radius);
         background: #ffffff;
       }
-        
-
-
-//   /*added from other tutorial*/
-//   /*box holding login info size and color */
-// //   .container {
-// //     justify-content: center;
-// //     width: 400px;
-// //     max-width: 400px;
-// //     margin: 1rem;
-// //     padding: 2rem;
-// //     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-// //     border-radius: var(--border-radius);
-// //     background: #ffffff;
-// //   }
   
-  
-// //   code {
-// //     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-// //       monospace;
-// //   }
-  
-   /* .header{
-    margin: 2em 0 2em 2em;
-    font-size: 1em;
-    border-bottom: 1px solid;
-  
-  } 
-  
-  /* header for home, register, login, premium content */
-//   .header a {
-//     margin: 0 1em 0 1em;
-//     font-size: 1.2em;
-//     text-decoration: none;
-  
-//   }
-  
-//   /* test align and size */
+  /* test align and size */
   .content{
   /* margin-left: 1em; */
   font-size: 1.2em;
@@ -174,12 +132,6 @@ body {
       border-color: var(--color-error);
   }
   
-//   /*err0r message font and color*/
-//   /* .form__input-error-message {
-//       margin-top: 0.5rem;
-//       font-size: 0.85rem;
-//       color: var(--color-error);
-//   } */
   
   /*button for continue */
   .form__button {
@@ -194,14 +146,11 @@ body {
       outline: none;
       cursor: pointer;
       background: #ee631d;
-    //   #ee7a0e;
-    //   var(--color-primary);
   }
   
   /*hover over button*/
   .form__button:hover {
       background: #08face;
-    //   var(--color-primary-dark);
   }
   
   /*click button*/
