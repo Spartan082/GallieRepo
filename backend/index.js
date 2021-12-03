@@ -47,7 +47,7 @@ const db = mysql.createConnection({
     database: 'Galliedb',
     port: 3306,
     timezone: 'UTC'
-}); 
+});
 
 /* Template Queries */
 /* ------------------------------------------------------------------------------------------------------------------------------ */
@@ -527,10 +527,8 @@ app.post("/register", (req, res) => {
   const password = req.body.password;
   const status = req.body.status;
 
-  console.log(password);
-
   bcrypt.hash(password, saltRounds, (err, hash) => {
-    console.log(hash);
+
 
     if (err) {
       console.log(err);
@@ -563,11 +561,7 @@ app.post("/login", (req, res) => {
       throw err;
     }  
     if (result.length > 0) {
-      console.log(password);
-
-      console.log(result[0].password);
       bcrypt.compare(password,result[0].password, (error, response) => {
-        console.log(response);
         if (response){
           req.session.user = result;
           console.log(req.session.user);

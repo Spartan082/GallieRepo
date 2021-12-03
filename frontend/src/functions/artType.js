@@ -1,7 +1,7 @@
 import "../styles/template.scss";
 
 function ArtType({templateInfo}) {
-    const awsRoute = process.env.REACT_APP_AWS_Route;
+    const awsRoute = process.env.REACT_APP_AWS_Route;  
 
     return (
     <div className="templateSet">
