@@ -25,11 +25,14 @@ const Login = (props) => {
       password: password
     }
 
+    console.log(requestBody);
+
   axios.post(process.env.REACT_APP_IP_ADDRESS + '/login', requestBody)
     .then((res) => {
       //console.log(res.data)
       console.log(res);
       if(res.data.message){
+        console.log(res.data.message);
         setLoginStatus(res.data.message);
         if(res.data.loggedIn === true) {
           setLoginStatus(res.data.user[0].username);}
@@ -47,7 +50,7 @@ const Login = (props) => {
 
   useEffect(() => {
     axios.get(process.env.REACT_APP_IP_ADDRESS + '/login').then((res) => {
-      //console.log(response);
+      console.log(res);
       if(res.data.loggedIn === true) {
       setLoginStatus(res.data.user[0].username);
   

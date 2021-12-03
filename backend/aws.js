@@ -1,11 +1,10 @@
 import React , {useState} from 'react';
 import { uploadFile } from 'react-s3';
 
-
-const S3_BUCKET ='gallie-artwork-images';
-const REGION ='us-east-1';
-const ACCESS_KEY ='AKIASXCPVCMKISRN3YGD';
-const SECRET_ACCESS_KEY ='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';
+const S3_BUCKET = process.env.REACT_APP_BUCKET_NAME;
+const REGION = process.env.REACT_APP_BUCKET_REGION;
+const ACCESS_KEY = process.env.REACT_APP_S3_ACCESS_KEY;
+const SECRET_ACCESS_KEY = process.env.REACT_APP_S3_SECRET_ACCESS_KEY;
 
 const config = {
     bucketName: S3_BUCKET,
@@ -13,6 +12,8 @@ const config = {
     accessKeyId: ACCESS_KEY,
     secretAccessKey: SECRET_ACCESS_KEY,
 }
+
+console.log(config);
 
 const UploadImageToS3WithReactS3 = () => {
 
